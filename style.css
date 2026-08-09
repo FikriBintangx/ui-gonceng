@@ -1,6 +1,6 @@
 /* ==========================================================================
    GO-NCENG MAP-FIRST NATIVE SUPERAPP LAYOUT SYSTEM
-   Inspired by Gojek & Grab Native iOS/Android UX
+   Inspired by Gojek & Grab Native iOS/Android UX (Outline Edition)
    ========================================================================== */
 
 :root {
@@ -480,21 +480,23 @@ body {
   background: var(--primary-light);
 }
 
+/* OUTLINE ICON STYLE SPECIFICATION */
 .s-icon {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
+  border: 1.5px solid currentColor;
+  transition: var(--transition);
 }
 
-.icon-ride { background: linear-gradient(135deg, #00AA13, #107C41); }
-.icon-car { background: linear-gradient(135deg, #0284c7, #0369a1); }
-.icon-send { background: linear-gradient(135deg, #f59e0b, #d97706); }
-.icon-food { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.icon-ride-outline { color: var(--primary); background: var(--primary-light); }
+.icon-car-outline { color: var(--accent-blue); background: #e0f2fe; }
+.icon-send-outline { color: var(--accent-orange); background: #fef3c7; }
+.icon-food-outline { color: var(--accent-red); background: #ffe4e6; }
 
 .service-pill span { font-size: 0.72rem; font-weight: 700; color: var(--text-main); }
 
@@ -523,7 +525,7 @@ body {
 .input-wrap small { font-size: 0.58rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.05em; }
 .input-wrap input { border: none; background: transparent; outline: none; font-size: 0.82rem; font-weight: 700; color: var(--text-main); width: 100%; }
 
-.btn-clear-in { border: none; background: transparent; color: var(--text-muted); font-size: 0.8rem; cursor: pointer; }
+.btn-clear-in { border: none; background: transparent; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; }
 
 .saved-chips-bar {
   display: flex;
@@ -550,6 +552,8 @@ body {
   white-space: nowrap;
   cursor: pointer;
 }
+
+.place-chip i { font-size: 0.85rem; color: var(--text-muted); }
 
 /* BUTTON ACTION */
 .btn-confirm-action {
@@ -593,7 +597,7 @@ body {
 
 .vehicle-card.selected { border-color: var(--primary); background: var(--primary-light); }
 
-.v-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; color: #fff; flex-shrink: 0; }
+.v-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
 .v-details { flex: 1; }
 .v-title { display: flex; align-items: center; gap: 6px; }
 .v-title strong { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 800; }
@@ -616,6 +620,7 @@ body {
   margin-bottom: 12px;
 }
 
+.notes-input-bar i { color: var(--text-muted); font-size: 0.9rem; }
 .notes-input-bar input { border: none; background: transparent; outline: none; font-size: 0.78rem; width: 100%; }
 
 .voucher-trigger-card {
@@ -656,12 +661,12 @@ body {
 
 .pay-tile.selected { border-color: var(--primary); background: var(--primary-light); }
 .radio-icon { color: var(--primary); font-size: 1rem; }
-.pay-icon { width: 34px; height: 34px; border-radius: 8px; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+.pay-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; border: 1.5px solid currentColor; }
 
-.icon-gopay { background: var(--primary); }
-.icon-qris { background: #0f172a; }
-.icon-ovo { background: #5b21b6; }
-.icon-cash { background: #15803d; }
+.icon-gopay-outline { color: var(--primary); background: var(--primary-light); }
+.icon-qris-outline { color: #0f172a; background: #e2e8f0; }
+.icon-ovo-outline { color: #5b21b6; background: #f3e8ff; }
+.icon-cash-outline { color: #15803d; background: #dcfce7; }
 
 .pay-info { flex: 1; display: flex; flex-direction: column; }
 .pay-info strong { font-size: 0.78rem; }
@@ -721,7 +726,7 @@ body {
 
 /* PANEL 5: SELESAI */
 .completed-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 16px 10px; }
-.success-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 8px; }
+.success-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 8px; }
 .completed-card h2 { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; }
 .completed-card p { font-size: 0.72rem; color: var(--text-muted); }
 

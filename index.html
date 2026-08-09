@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GO-NCENG - Map-First Ride Hailing SuperApp</title>
-  <meta name="description" content="GO-NCENG App - Full Map-First UX Layout inspired by Gojek & Grab.">
+  <meta name="description" content="GO-NCENG App - Full Map-First UX Layout with 100% Minimalist Outline Icon System.">
 
   <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- FontAwesome 6 & Leaflet CSS -->
+  <!-- FontAwesome 6 (Regular & Light Outline) & Leaflet CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css">
@@ -25,35 +25,35 @@
 
     <div class="desktop-hero-content">
       <div class="hero-chip">
-        <i class="fa-solid fa-map-location-dot"></i> MAP-FIRST SUPERAPP UX
+        <i class="fa-regular fa-map"></i> OUTLINE ICON DESIGN SYSTEM
       </div>
-      <h1>GO-NCENG<br><span class="hero-accent">NATIVE LAYOUT</span></h1>
-      <p>Pengalaman aplikasi transportasi online 100% Map-First seperti Gojek & Grab. Peta interaktif full-screen sebagai canvas utama dengan Floating Bottom Sheet interaktif.</p>
+      <h1>GO-NCENG<br><span class="hero-accent">OUTLINE EDITION</span></h1>
+      <p>Tampilan aplikasi modern dengan **100% Icon Outline/Stroke** minimalist ala iOS & modern Android superapps.</p>
 
       <div class="hero-features-grid">
         <div class="feat-box">
-          <i class="fa-solid fa-layer-group"></i>
+          <i class="fa-regular fa-compass"></i>
           <div>
             <strong>Full Map Canvas</strong>
             <span>Peta Leaflet sebagai background utama</span>
           </div>
         </div>
         <div class="feat-box">
-          <i class="fa-solid fa-sliders"></i>
+          <i class="fa-regular fa-pen-to-square"></i>
           <div>
-            <strong>Floating Bottom Sheet</strong>
-            <span>Panel kontrol interaktif terangkat</span>
+            <strong>Clean Outline Icons</strong>
+            <span>Set ikon garis stroke presisi & elegan</span>
           </div>
         </div>
         <div class="feat-box">
-          <i class="fa-solid fa-mobile-screen"></i>
+          <i class="fa-regular fa-mobile-button"></i>
           <div>
             <strong>Dynamic Device Frame</strong>
             <span>Frame Smartphone 3D / Mobile View</span>
           </div>
         </div>
         <div class="feat-box">
-          <i class="fa-solid fa-route"></i>
+          <i class="fa-regular fa-clock"></i>
           <div>
             <strong>Live Route Simulation</strong>
             <span>Tracking pergerakan driver real-time</span>
@@ -63,7 +63,7 @@
 
       <div class="hero-actions">
         <button class="btn-toggle-theme" id="themeToggleBtn">
-          <i class="fa-solid fa-moon"></i> Dark / Light Frame
+          <i class="fa-regular fa-moon"></i> Dark / Light Frame
         </button>
         <a href="https://github.com/FikriBintangx/ui-gonceng" target="_blank" class="github-pill">
           <i class="fa-brands fa-github"></i> FikriBintangx/ui-gonceng
@@ -102,7 +102,7 @@
       <header class="map-floating-header" id="mapHeader">
         <div class="header-left">
           <button class="btn-icon-blur" id="btnBack" style="display: none;">
-            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-chevron-left"></i>
           </button>
           <div class="app-brand-pill">
             <span class="b-go">GO</span><span class="b-nceng">-NCENG</span>
@@ -111,7 +111,7 @@
 
         <div class="header-right">
           <div class="gopay-floating-chip" onclick="alert('Saldo GoPay: Rp 145.000 (Siap Digunakan)')">
-            <i class="fa-solid fa-wallet"></i>
+            <i class="fa-regular fa-credit-card text-green"></i>
             <div class="chip-val">
               <small>GoPay</small>
               <strong>Rp 145.000</strong>
@@ -125,7 +125,7 @@
 
       <!-- Recenter GPS Map Button -->
       <button class="btn-recenter-gps" id="btnRecenterGps" onclick="recenterMapToUser()" title="Kembali ke Lokasi Saya">
-        <i class="fa-solid fa-crosshairs"></i>
+        <i class="fa-regular fa-circle-dot"></i>
       </button>
 
       <!-- ================= FLOATING INTERACTIVE BOTTOM SHEET ================= -->
@@ -137,26 +137,26 @@
           
           <!-- Promo Ticker Bar -->
           <div class="promo-ticker">
-            <span class="ticker-badge"><i class="fa-solid fa-fire"></i> DISKON 50%</span>
+            <span class="ticker-badge"><i class="fa-regular fa-face-smile"></i> DISKON 50%</span>
             <p>Gunakan promo <strong>GONCENGHEMAT</strong> diskon s.d Rp 5.000!</p>
           </div>
 
-          <!-- Service Grid Selectors -->
+          <!-- Service Pill Grid (Clean Outline Icons & Subtle Soft Backgrounds) -->
           <div class="service-pill-grid">
             <button class="service-pill active" data-service="goride" onclick="selectService('goride')">
-              <div class="s-icon icon-ride"><i class="fa-solid fa-motorcycle"></i></div>
+              <div class="s-icon icon-ride-outline"><i class="fa-solid fa-motorcycle"></i></div>
               <span>NcengRide</span>
             </button>
             <button class="service-pill" data-service="gocar" onclick="selectService('gocar')">
-              <div class="s-icon icon-car"><i class="fa-solid fa-car"></i></div>
+              <div class="s-icon icon-car-outline"><i class="fa-solid fa-car"></i></div>
               <span>NcengCar</span>
             </button>
             <button class="service-pill" data-service="gosend" onclick="selectService('gosend')">
-              <div class="s-icon icon-send"><i class="fa-solid fa-box"></i></div>
+              <div class="s-icon icon-send-outline"><i class="fa-regular fa-paper-plane"></i></div>
               <span>NcengSend</span>
             </button>
             <button class="service-pill" data-service="gofood" onclick="selectService('gofood')">
-              <div class="s-icon icon-food"><i class="fa-solid fa-utensils"></i></div>
+              <div class="s-icon icon-food-outline"><i class="fa-regular fa-lemon"></i></div>
               <span>NcengFood</span>
             </button>
           </div>
@@ -169,7 +169,7 @@
                 <small>JEMPUT</small>
                 <input type="text" id="inputPickup" value="Stasiun Manggarai, Jakarta Selatan">
               </div>
-              <button class="btn-clear-in" onclick="clearInput('inputPickup')"><i class="fa-solid fa-xmark"></i></button>
+              <button class="btn-clear-in" onclick="clearInput('inputPickup')"><i class="fa-regular fa-circle-xmark"></i></button>
             </div>
 
             <div class="route-line"></div>
@@ -180,14 +180,14 @@
                 <small>TUJUAN</small>
                 <input type="text" id="inputDestination" value="Grand Indonesia Mall, Jakarta Pusat">
               </div>
-              <button class="btn-clear-in" onclick="clearInput('inputDestination')"><i class="fa-solid fa-xmark"></i></button>
+              <button class="btn-clear-in" onclick="clearInput('inputDestination')"><i class="fa-regular fa-circle-xmark"></i></button>
             </div>
 
-            <!-- Saved Location Quick Chips -->
+            <!-- Saved Location Quick Chips with Outline Icons -->
             <div class="saved-chips-bar">
-              <button class="place-chip" onclick="setQuickDest('Kantor Menara BCA, MH Thamrin')"><i class="fa-solid fa-briefcase"></i> Kantor</button>
-              <button class="place-chip" onclick="setQuickDest('Apartemen Sudirman Park, Karet')"><i class="fa-solid fa-house"></i> Rumah</button>
-              <button class="place-chip" onclick="setQuickDest('Stasiun Gambir, Gambir')"><i class="fa-solid fa-train"></i> Stasiun</button>
+              <button class="place-chip" onclick="setQuickDest('Kantor Menara BCA, MH Thamrin')"><i class="fa-regular fa-building"></i> Kantor</button>
+              <button class="place-chip" onclick="setQuickDest('Apartemen Sudirman Park, Karet')"><i class="fa-regular fa-hospital"></i> Rumah</button>
+              <button class="place-chip" onclick="setQuickDest('Stasiun Gambir, Gambir')"><i class="fa-regular fa-compass"></i> Stasiun</button>
             </div>
           </div>
 
@@ -208,14 +208,14 @@
           <div class="vehicle-options-list">
             <!-- NcengRide Standard -->
             <div class="vehicle-card selected" onclick="selectVehicle(this, 'goride_std', 14000)">
-              <div class="v-icon icon-ride"><i class="fa-solid fa-motorcycle"></i></div>
+              <div class="v-icon icon-ride-outline"><i class="fa-solid fa-motorcycle"></i></div>
               <div class="v-details">
                 <div class="v-title">
                   <strong>NcengRide Standard</strong>
-                  <span class="v-cap"><i class="fa-solid fa-user"></i> 1</span>
+                  <span class="v-cap"><i class="fa-regular fa-user"></i> 1</span>
                 </div>
                 <small>Motor lincah cepat sampai</small>
-                <span class="v-eta"><i class="fa-solid fa-bolt"></i> Jemput ~2 mnt</span>
+                <span class="v-eta"><i class="fa-regular fa-clock"></i> Jemput ~2 mnt</span>
               </div>
               <div class="v-price-wrap">
                 <strong class="v-price">Rp 14.000</strong>
@@ -225,14 +225,14 @@
 
             <!-- NcengRide Comfort XL -->
             <div class="vehicle-card" onclick="selectVehicle(this, 'goride_xl', 19000)">
-              <div class="v-icon icon-ride xl-badge"><i class="fa-solid fa-motorcycle"></i></div>
+              <div class="v-icon icon-ride-outline xl-badge"><i class="fa-solid fa-motorcycle"></i></div>
               <div class="v-details">
                 <div class="v-title">
                   <strong>NcengRide Comfort XL</strong>
-                  <span class="v-cap"><i class="fa-solid fa-user"></i> 1</span>
+                  <span class="v-cap"><i class="fa-regular fa-user"></i> 1</span>
                 </div>
                 <small>Motor matic besar & helm bersih</small>
-                <span class="v-eta"><i class="fa-solid fa-bolt"></i> Jemput ~3 mnt</span>
+                <span class="v-eta"><i class="fa-regular fa-clock"></i> Jemput ~3 mnt</span>
               </div>
               <div class="v-price-wrap">
                 <strong class="v-price">Rp 19.000</strong>
@@ -241,14 +241,14 @@
 
             <!-- NcengCar Standard -->
             <div class="vehicle-card" onclick="selectVehicle(this, 'gocar_std', 32000)">
-              <div class="v-icon icon-car"><i class="fa-solid fa-car"></i></div>
+              <div class="v-icon icon-car-outline"><i class="fa-solid fa-car"></i></div>
               <div class="v-details">
                 <div class="v-title">
                   <strong>NcengCar Hemat</strong>
-                  <span class="v-cap"><i class="fa-solid fa-user"></i> 4</span>
+                  <span class="v-cap"><i class="fa-regular fa-user"></i> 4</span>
                 </div>
                 <small>Mobil AC nyaman anti hujan</small>
-                <span class="v-eta"><i class="fa-solid fa-bolt"></i> Jemput ~5 mnt</span>
+                <span class="v-eta"><i class="fa-regular fa-clock"></i> Jemput ~5 mnt</span>
               </div>
               <div class="v-price-wrap">
                 <strong class="v-price">Rp 32.000</strong>
@@ -265,7 +265,7 @@
           <!-- Voucher Trigger -->
           <div class="voucher-trigger-card" onclick="toggleVoucherModal()">
             <div class="v-left">
-              <i class="fa-solid fa-ticket text-green"></i>
+              <i class="fa-regular fa-bookmark text-green"></i>
               <div class="v-info-text">
                 <strong id="appliedVoucherTitle">Gunakan Voucher Diskon</strong>
                 <small id="appliedVoucherDesc">Potongan Rp 5.000 terpasang</small>
@@ -281,7 +281,7 @@
             </div>
             <button class="btn-confirm-action" onclick="goToStep(3)">
               <span>Lanjut Bayar</span>
-              <i class="fa-solid fa-credit-card"></i>
+              <i class="fa-regular fa-credit-card"></i>
             </button>
           </div>
         </div>
@@ -296,7 +296,7 @@
           <div class="payment-methods-card">
             <div class="pay-tile selected" onclick="selectPaymentMethod(this, 'gopay')">
               <i class="fa-solid fa-circle-dot radio-icon"></i>
-              <div class="pay-icon icon-gopay"><i class="fa-solid fa-wallet"></i></div>
+              <div class="pay-icon icon-gopay-outline"><i class="fa-regular fa-credit-card"></i></div>
               <div class="pay-info">
                 <strong>GoPay Balance</strong>
                 <small>Saldo: Rp 145.000</small>
@@ -306,7 +306,7 @@
 
             <div class="pay-tile" onclick="selectPaymentMethod(this, 'qris')">
               <i class="fa-regular fa-circle radio-icon"></i>
-              <div class="pay-icon icon-qris"><i class="fa-solid fa-qrcode"></i></div>
+              <div class="pay-icon icon-qris-outline"><i class="fa-solid fa-qrcode"></i></div>
               <div class="pay-info">
                 <strong>QRIS Instant</strong>
                 <small>Scan BCA / Mandiri / ShopeePay</small>
@@ -315,7 +315,7 @@
 
             <div class="pay-tile" onclick="selectPaymentMethod(this, 'ovo')">
               <i class="fa-regular fa-circle radio-icon"></i>
-              <div class="pay-icon icon-ovo"><i class="fa-solid fa-mobile-screen"></i></div>
+              <div class="pay-icon icon-ovo-outline"><i class="fa-regular fa-gem"></i></div>
               <div class="pay-info">
                 <strong>OVO / DANA Wallet</strong>
                 <small>Terhubung otomatis</small>
@@ -324,7 +324,7 @@
 
             <div class="pay-tile" onclick="selectPaymentMethod(this, 'cash')">
               <i class="fa-regular fa-circle radio-icon"></i>
-              <div class="pay-icon icon-cash"><i class="fa-solid fa-money-bill-wave"></i></div>
+              <div class="pay-icon icon-cash-outline"><i class="fa-regular fa-money-bill-1"></i></div>
               <div class="pay-info">
                 <strong>Tunai (Cash)</strong>
                 <small>Bayar ke driver</small>
@@ -372,11 +372,11 @@
               <div class="driver-info">
                 <h4 id="driverName">Budi Santoso</h4>
                 <p class="plate-text" id="driverPlate">B 4821 SGX • Honda Vario 160</p>
-                <small class="tag-verified"><i class="fa-solid fa-shield-check"></i> Driver Terverifikasi</small>
+                <small class="tag-verified"><i class="fa-regular fa-circle-check"></i> Driver Terverifikasi</small>
               </div>
               <div class="driver-actions">
                 <button class="btn-circle-act" onclick="alert('Menghubungkan telepon ke driver...')"><i class="fa-solid fa-phone"></i></button>
-                <button class="btn-circle-act" onclick="openChatModal()"><i class="fa-solid fa-comment"></i></button>
+                <button class="btn-circle-act" onclick="openChatModal()"><i class="fa-regular fa-comment-dots"></i></button>
               </div>
             </div>
 
@@ -400,7 +400,7 @@
         <!-- ================= PANEL 5: ORDER SELESAI & STRUK ================= -->
         <div class="sheet-panel" id="panelSelesai">
           <div class="completed-card">
-            <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+            <div class="success-icon"><i class="fa-regular fa-circle-check"></i></div>
             <h2>Perjalanan Selesai!</h2>
             <p>Terima kasih telah menggunakan GO-NCENG</p>
           </div>
@@ -437,7 +437,7 @@
           </div>
 
           <button class="btn-confirm-action" onclick="resetAppToHome()">
-            <i class="fa-solid fa-house"></i>
+            <i class="fa-regular fa-building"></i>
             <span>Kembali ke Beranda</span>
           </button>
         </div>
@@ -447,19 +447,19 @@
       <!-- Bottom Nav Bar (Visible on Panel 1) -->
       <nav class="map-bottom-nav" id="bottomNav">
         <button class="nav-tab active" onclick="goToStep(1)">
-          <i class="fa-solid fa-compass"></i>
+          <i class="fa-regular fa-compass"></i>
           <span>Beranda</span>
         </button>
         <button class="nav-tab" onclick="alert('Promo Spesial: Diskon s.d 80% NcengRide & NcengFood!')">
-          <i class="fa-solid fa-tags"></i>
+          <i class="fa-regular fa-bookmark"></i>
           <span>Promo</span>
         </button>
         <button class="nav-tab" onclick="alert('Riwayat Transaksi: 14 Perjalanan Selesai')">
-          <i class="fa-solid fa-clock-rotate-left"></i>
+          <i class="fa-regular fa-clock"></i>
           <span>Pesanan</span>
         </button>
         <button class="nav-tab" onclick="alert('Profil Akun: Fikri Bintang (Member Gold)')">
-          <i class="fa-solid fa-user"></i>
+          <i class="fa-regular fa-user"></i>
           <span>Akun</span>
         </button>
       </nav>
