@@ -1,11 +1,10 @@
 /* ==========================================================================
-   GO-NCENG INTERACTIVE LOGIC & STATE MANAGEMENT
+   GO-NCENG INTERACTIVE STATE LOGIC & DYNAMIC ISLAND INTEGRATION
    ========================================================================== */
 
-// Application State Store
 const state = {
   currentStep: 1,
-  selectedService: 'goride', // goride, gocar, gosend, gofood
+  selectedService: 'goride',
   selectedVehicle: 'goride_std',
   baseFare: 14000,
   discountAmount: 5000,
@@ -19,36 +18,31 @@ const state = {
   driverPhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
   rating: 5,
 
-  // Coordinates (Jakarta Manggarai to Grand Indonesia)
+  // Leaflet Coordinates (Manggarai -> Grand Indonesia)
   pickupCoords: [-6.2099, 106.8502],
   destCoords: [-6.1953, 106.8202],
   
-  // Map instances
   mapAlamat: null,
   mapRoute: null,
   mapTracking: null,
   
-  // Animation markers & timers
   driverMarker: null,
   trackingTimer: null
 };
 
-// DOM Initialization
 document.addEventListener('DOMContentLoaded', () => {
   initClock();
   initMaps();
   updateCalculatedFare();
   
-  // Theme toggle button logic
   const themeBtn = document.getElementById('themeToggleBtn');
   if (themeBtn) {
     themeBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark-frame');
+      document.body.classList.toggle('dark-mode');
     });
   }
 });
 
-// Update status bar digital time
 function initClock() {
   const timeEl = document.getElementById('statusTime');
   const updateTime = () => {
@@ -61,9 +55,8 @@ function initClock() {
   setInterval(updateTime, 10000);
 }
 
-/* ================= LEAFLET MAPS INTEGRATION ================= */
+/* ================= LEAFLET MAP INTEGRATION ================= */
 function initMaps() {
-  // 1. Map Step 1 (Address Overview)
   if (document.getElementById('mapAlamat')) {
     state.mapAlamat = L.map('mapAlamat', { zoomControl: false }).setView(state.pickupCoords, 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -71,16 +64,15 @@ function initMaps() {
       attribution: '&copy; OpenStreetMap'
     }).addTo(state.mapAlamat);
 
-    // Custom Icon Markers
     const pickupIcon = L.divIcon({
-      className: 'custom-map-pin pickup-pin',
-      html: '<div style="background:#00AA13; width:16px; height:16px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 8px rgba(0,0,0,0.4);"></div>',
+      className: 'custom-map-pin',
+      html: '<div style="background:#00AA13; width:16px; height:16px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 10px rgba(0,0,0,0.4);"></div>',
       iconSize: [16, 16]
     });
 
     const destIcon = L.divIcon({
-      className: 'custom-map-pin dest-pin',
-      html: '<div style="background:#ef4444; width:16px; height:16px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 8px rgba(0,0,0,0.4);"></div>',
+      className: 'custom-map-pin',
+      html: '<div style="background:#ef4444; width:16px; height:16px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 10px rgba(0,0,0,0.4);"></div>',
       iconSize: [16, 16]
     });
 
@@ -90,9 +82,7 @@ function initMaps() {
 }
 
 function initRouteMap() {
-  if (state.mapRoute) {
-    state.mapRoute.remove();
-  }
+  if (state.mapRoute) state.mapRoute.remove();
   
   const mapEl = document.getElementById('mapRoute');
   if (!mapEl) return;
@@ -103,7 +93,7 @@ function initRouteMap() {
   const routePolyline = L.polyline([state.pickupCoords, [-6.2020, 106.8350], state.destCoords], {
     color: '#00AA13',
     weight: 5,
-    opacity: 0.8,
+    opacity: 0.85,
     dashArray: '8, 8'
   }).addTo(state.mapRoute);
 
@@ -111,9 +101,7 @@ function initRouteMap() {
 }
 
 function initTrackingMap() {
-  if (state.mapTracking) {
-    state.mapTracking.remove();
-  }
+  if (state.mapTracking) state.mapTracking.remove();
   
   const mapEl = document.getElementById('mapTracking');
   if (!mapEl) return;
@@ -121,73 +109,56 @@ function initTrackingMap() {
   state.mapTracking = L.map('mapTracking', { zoomControl: false }).setView(state.pickupCoords, 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(state.mapTracking);
 
-  // Driver Bike Marker Icon
   const bikeIcon = L.divIcon({
     className: 'driver-bike-marker',
-    html: '<div style="background:#00AA13; color:#fff; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.3); font-size:16px;"><i class="fa-solid fa-motorcycle"></i></div>',
-    iconSize: [34, 34],
-    iconAnchor: [17, 17]
+    html: '<div style="background:#00AA13; color:#fff; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.35); font-size:18px;"><i class="fa-solid fa-motorcycle"></i></div>',
+    iconSize: [36, 36],
+    iconAnchor: [18, 18]
   });
 
-  // Start driver slightly away to simulate approach
   const driverStart = [-6.2135, 106.8550];
   state.driverMarker = L.marker(driverStart, { icon: bikeIcon }).addTo(state.mapTracking);
 
-  // Pickup marker
-  L.circleMarker(state.pickupCoords, {
-    radius: 8,
-    fillColor: "#00AA13",
-    color: "#ffffff",
-    weight: 3,
-    opacity: 1,
-    fillOpacity: 0.9
-  }).addTo(state.mapTracking);
+  L.circleMarker(state.pickupCoords, { radius: 8, fillColor: "#00AA13", color: "#ffffff", weight: 3, opacity: 1, fillOpacity: 0.9 }).addTo(state.mapTracking);
+  L.circleMarker(state.destCoords, { radius: 8, fillColor: "#ef4444", color: "#ffffff", weight: 3, opacity: 1, fillOpacity: 0.9 }).addTo(state.mapTracking);
 
-  // Destination marker
-  L.circleMarker(state.destCoords, {
-    radius: 8,
-    fillColor: "#ef4444",
-    color: "#ffffff",
-    weight: 3,
-    opacity: 1,
-    fillOpacity: 0.9
-  }).addTo(state.mapTracking);
-
-  // Route Polyline
   L.polyline([driverStart, state.pickupCoords, [-6.2020, 106.8350], state.destCoords], {
     color: '#00AA13',
     weight: 4,
-    opacity: 0.7
+    opacity: 0.75
   }).addTo(state.mapTracking);
 }
 
-/* ================= STEP NAVIGATION ================= */
+/* ================= STEP FLOW CONTROL ================= */
 function goToStep(stepNum) {
   state.currentStep = stepNum;
 
-  // Hide all screens
-  document.querySelectorAll('.screen-step').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.screen-panel').forEach(el => el.classList.remove('active'));
 
-  // Show target step screen
-  const targetStep = document.getElementById(`stepStep${stepNum}`) || document.querySelectorAll('.screen-step')[stepNum - 1];
-  if (targetStep) {
-    targetStep.classList.add('active');
-  }
+  const panels = document.querySelectorAll('.screen-panel');
+  if (panels[stepNum - 1]) panels[stepNum - 1].classList.add('active');
 
-  // Header Back Button Logic
   const btnBack = document.getElementById('btnBack');
   const bottomNav = document.getElementById('bottomNav');
-  
+  const island = document.getElementById('dynamicIsland');
+  const islandBadge = document.getElementById('islandBadge');
+
   if (btnBack) {
     btnBack.style.display = stepNum > 1 && stepNum < 5 ? 'flex' : 'none';
     btnBack.onclick = () => goToStep(stepNum - 1);
   }
 
-  if (bottomNav) {
-    bottomNav.style.display = stepNum === 1 ? 'flex' : 'none';
+  if (bottomNav) bottomNav.style.display = stepNum === 1 ? 'flex' : 'none';
+
+  // Toggle Dynamic Island Live Notification Badge
+  if (stepNum === 4) {
+    if (island) island.classList.add('expanded');
+    if (islandBadge) islandBadge.style.display = 'flex';
+  } else {
+    if (island) island.classList.remove('expanded');
+    if (islandBadge) islandBadge.style.display = 'none';
   }
 
-  // Trigger Step Specific Initialization
   if (stepNum === 2) {
     setTimeout(initRouteMap, 100);
     updateCalculatedFare();
@@ -199,11 +170,10 @@ function goToStep(stepNum) {
   }
 }
 
-/* ================= SERVICE & VEHICLE SELECTION ================= */
 function selectService(serviceType) {
   state.selectedService = serviceType;
-  document.querySelectorAll('.service-card').forEach(card => card.classList.remove('active'));
-  const activeCard = document.querySelector(`.service-card[data-service="${serviceType}"]`);
+  document.querySelectorAll('.service-item').forEach(card => card.classList.remove('active'));
+  const activeCard = document.querySelector(`.service-item[data-service="${serviceType}"]`);
   if (activeCard) activeCard.classList.add('active');
 
   if (serviceType === 'goride') selectVehicle(null, 'goride_std', 14000);
@@ -217,7 +187,7 @@ function selectVehicle(element, vehId, fare) {
   state.baseFare = fare;
 
   if (element) {
-    document.querySelectorAll('.vehicle-option-card').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll('.tier-card').forEach(el => el.classList.remove('selected'));
     element.classList.add('selected');
   }
   updateCalculatedFare();
@@ -225,25 +195,22 @@ function selectVehicle(element, vehId, fare) {
 
 function selectPaymentMethod(element, payId) {
   state.selectedPayment = payId;
-  document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.payment-tile').forEach(el => el.classList.remove('selected'));
   element.classList.add('selected');
-  
-  // Toggle radio icon inside
-  document.querySelectorAll('.payment-option .pay-radio i').forEach(i => {
+
+  document.querySelectorAll('.payment-tile .tile-radio i').forEach(i => {
     i.className = 'fa-regular fa-circle';
   });
-  const radio = element.querySelector('.pay-radio i');
+  const radio = element.querySelector('.tile-radio i');
   if (radio) radio.className = 'fa-solid fa-circle-dot';
 }
 
 function updateCalculatedFare() {
   const finalFare = Math.max(0, state.baseFare + 2000 - state.discountAmount);
   
-  // Update step 2 preview
   const s2Total = document.getElementById('step2TotalFare');
   if (s2Total) s2Total.textContent = `Rp ${finalFare.toLocaleString('id-ID')}`;
 
-  // Update step 3 breakdown
   const summaryBaseFare = document.getElementById('summaryBaseFare');
   const summaryDiscountVal = document.getElementById('summaryDiscountVal');
   const summaryFinalTotal = document.getElementById('summaryFinalTotal');
@@ -253,7 +220,6 @@ function updateCalculatedFare() {
   if (summaryFinalTotal) summaryFinalTotal.textContent = `Rp ${finalFare.toLocaleString('id-ID')}`;
 }
 
-/* ================= QUICK LOCATION HELPERS ================= */
 function setQuickDest(placeName) {
   const destInput = document.getElementById('inputDestination');
   if (destInput) {
@@ -275,7 +241,6 @@ function useCurrentLocation(type) {
   }
 }
 
-/* ================= VOUCHER MODAL LOGIC ================= */
 function toggleVoucherModal() {
   const modal = document.getElementById('voucherModal');
   if (modal) modal.classList.toggle('show');
@@ -295,12 +260,9 @@ function applyVoucher(code, discount, title, desc) {
   toggleVoucherModal();
 }
 
-/* ================= SIMULATION DRIVER & TRIP PROGRESS ================= */
 function processPaymentOrder() {
-  // Read optional notes
   const notesEl = document.getElementById('driverNotes');
   if (notesEl) state.driverNotes = notesEl.value;
-
   goToStep(4);
 }
 
@@ -308,25 +270,23 @@ function startDriverSimulation() {
   const searchBox = document.getElementById('viewSearchingDriver');
   const driverFoundBox = document.getElementById('viewDriverFound');
   const statusPillText = document.getElementById('liveStatusText');
+  const islandStatus = document.getElementById('islandStatusText');
   const searchFill = document.getElementById('searchProgressFill');
 
   if (searchBox) searchBox.style.display = 'flex';
   if (driverFoundBox) driverFoundBox.style.display = 'none';
   if (statusPillText) statusPillText.textContent = 'Mencari Driver Terdekat...';
+  if (islandStatus) islandStatus.textContent = 'Mencari Driver';
   if (searchFill) searchFill.style.width = '20%';
 
-  // Step A: Searching driver (2 seconds animation)
-  setTimeout(() => {
-    if (searchFill) searchFill.style.width = '70%';
-  }, 1000);
+  setTimeout(() => { if (searchFill) searchFill.style.width = '70%'; }, 1000);
 
   setTimeout(() => {
     if (searchFill) searchFill.style.width = '100%';
-    
-    // Step B: Driver Found!
     if (searchBox) searchBox.style.display = 'none';
     if (driverFoundBox) driverFoundBox.style.display = 'block';
     if (statusPillText) statusPillText.textContent = 'Driver Ditemukan - Menuju Penjemputan';
+    if (islandStatus) islandStatus.textContent = 'Driver OTW';
 
     animateDriverMovement();
   }, 2200);
@@ -350,34 +310,27 @@ function animateDriverMovement() {
     const statusPillText = document.getElementById('liveStatusText');
 
     if (progress <= 0.3) {
-      // Driver moving to pickup
       const ratio = progress / 0.3;
       currentLat = start[0] + (pickup[0] - start[0]) * ratio;
       currentLng = start[1] + (pickup[1] - start[1]) * ratio;
-      if (t1) t1.className = 'time-step completed';
+      if (t1) t1.className = 'step-node active';
       if (statusPillText) statusPillText.textContent = 'Driver Menuju Lokasi Penjemputan...';
     } else if (progress <= 0.5) {
-      // Driver arrived at pickup
       currentLat = pickup[0];
       currentLng = pickup[1];
-      if (t2) t2.className = 'time-step completed';
+      if (t2) t2.className = 'step-node active';
       if (statusPillText) statusPillText.textContent = 'Driver Sudah Sampai di Titik Jemput!';
     } else if (progress < 1.0) {
-      // Driver trip to destination
       const ratio = (progress - 0.5) / 0.5;
       currentLat = pickup[0] + (dest[0] - pickup[0]) * ratio;
       currentLng = pickup[1] + (dest[1] - pickup[1]) * ratio;
-      if (t3) t3.className = 'time-step completed';
+      if (t3) t3.className = 'step-node active';
       if (statusPillText) statusPillText.textContent = 'Perjalanan Menuju Grand Indonesia...';
     } else {
-      // Trip completed!
       clearInterval(state.trackingTimer);
       state.trackingTimer = null;
       if (statusPillText) statusPillText.textContent = 'Tiba di Tujuan!';
-      
-      setTimeout(() => {
-        goToStep(5);
-      }, 1200);
+      setTimeout(() => { goToStep(5); }, 1200);
       return;
     }
 
@@ -396,7 +349,6 @@ function fastForwardTripSim() {
   goToStep(5);
 }
 
-/* ================= STEP 5: COMPLETED & RATING ================= */
 function setRating(val) {
   state.rating = val;
   const stars = document.querySelectorAll('#starRating .star');
@@ -407,7 +359,7 @@ function setRating(val) {
 }
 
 function submitRating() {
-  const btn = document.querySelector('.btn-submit-rating');
+  const btn = document.querySelector('.btn-submit-review');
   if (btn) {
     btn.textContent = '✔ Ulasan Terkirim!';
     btn.style.background = '#00AA13';
@@ -425,5 +377,5 @@ function resetAppToHome() {
 }
 
 function openChatModal() {
-  alert('Chat dengan Budi Santoso:\n"Saya sudah di depan gapura Stasiun Manggarai ya Mas!"');
+  alert('Chat dengan Budi Santoso:\n"Saya sudah sampai di depan gapura Pintu Barat ya Mas!"');
 }
