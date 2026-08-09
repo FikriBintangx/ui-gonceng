@@ -1,0 +1,9 @@
+{
+  "name": "uiux-gonceng",
+  "version": "1.0.0",
+  "description": "GO-NCENG Map-First Ride Hailing SuperApp",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  }
+}
