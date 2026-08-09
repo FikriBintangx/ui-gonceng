@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GO-NCENG - Map-First Ride Hailing SuperApp</title>
-  <meta name="description" content="GO-NCENG App - Full Map-First UX Layout with 100% Minimalist Outline Icon System.">
+  <meta name="description" content="GO-NCENG App - Full Map-First UX Layout with Unified Gojek Green Outline Icon System.">
 
   <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- FontAwesome 6 (Regular & Light Outline) & Leaflet CSS -->
+  <!-- FontAwesome 6 & Leaflet CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css">
@@ -25,10 +25,10 @@
 
     <div class="desktop-hero-content">
       <div class="hero-chip">
-        <i class="fa-regular fa-map"></i> OUTLINE ICON DESIGN SYSTEM
+        <i class="fa-regular fa-map"></i> UNIFIED GOJEK GREEN ICONS
       </div>
-      <h1>GO-NCENG<br><span class="hero-accent">OUTLINE EDITION</span></h1>
-      <p>Tampilan aplikasi modern dengan **100% Icon Outline/Stroke** minimalist ala iOS & modern Android superapps.</p>
+      <h1>GO-NCENG<br><span class="hero-accent">GREEN EDITION</span></h1>
+      <p>Tampilan aplikasi modern dengan **100% Gojek Green Outline Icons** (NcengFood dengan ikon mangkuk/makanan presisi & seragam hijau).</p>
 
       <div class="hero-features-grid">
         <div class="feat-box">
@@ -39,10 +39,10 @@
           </div>
         </div>
         <div class="feat-box">
-          <i class="fa-regular fa-pen-to-square"></i>
+          <i class="fa-solid fa-utensils"></i>
           <div>
-            <strong>Clean Outline Icons</strong>
-            <span>Set ikon garis stroke presisi & elegan</span>
+            <strong>NcengFood Icon</strong>
+            <span>Ikon makanan presisi ala GoFood/GrabFood</span>
           </div>
         </div>
         <div class="feat-box">
@@ -141,22 +141,22 @@
             <p>Gunakan promo <strong>GONCENGHEMAT</strong> diskon s.d Rp 5.000!</p>
           </div>
 
-          <!-- Service Pill Grid (Clean Outline Icons & Subtle Soft Backgrounds) -->
+          <!-- Service Pill Grid (All Icons Unified Gojek Green & Food Icon Fix) -->
           <div class="service-pill-grid">
             <button class="service-pill active" data-service="goride" onclick="selectService('goride')">
-              <div class="s-icon icon-ride-outline"><i class="fa-solid fa-motorcycle"></i></div>
+              <div class="s-icon icon-unified-green"><i class="fa-solid fa-motorcycle"></i></div>
               <span>NcengRide</span>
             </button>
             <button class="service-pill" data-service="gocar" onclick="selectService('gocar')">
-              <div class="s-icon icon-car-outline"><i class="fa-solid fa-car"></i></div>
+              <div class="s-icon icon-unified-green"><i class="fa-solid fa-car"></i></div>
               <span>NcengCar</span>
             </button>
             <button class="service-pill" data-service="gosend" onclick="selectService('gosend')">
-              <div class="s-icon icon-send-outline"><i class="fa-regular fa-paper-plane"></i></div>
+              <div class="s-icon icon-unified-green"><i class="fa-regular fa-paper-plane"></i></div>
               <span>NcengSend</span>
             </button>
             <button class="service-pill" data-service="gofood" onclick="selectService('gofood')">
-              <div class="s-icon icon-food-outline"><i class="fa-regular fa-lemon"></i></div>
+              <div class="s-icon icon-unified-green"><i class="fa-solid fa-utensils"></i></div>
               <span>NcengFood</span>
             </button>
           </div>
@@ -208,7 +208,7 @@
           <div class="vehicle-options-list">
             <!-- NcengRide Standard -->
             <div class="vehicle-card selected" onclick="selectVehicle(this, 'goride_std', 14000)">
-              <div class="v-icon icon-ride-outline"><i class="fa-solid fa-motorcycle"></i></div>
+              <div class="v-icon icon-unified-green"><i class="fa-solid fa-motorcycle"></i></div>
               <div class="v-details">
                 <div class="v-title">
                   <strong>NcengRide Standard</strong>
@@ -225,7 +225,7 @@
 
             <!-- NcengRide Comfort XL -->
             <div class="vehicle-card" onclick="selectVehicle(this, 'goride_xl', 19000)">
-              <div class="v-icon icon-ride-outline xl-badge"><i class="fa-solid fa-motorcycle"></i></div>
+              <div class="v-icon icon-unified-green xl-badge"><i class="fa-solid fa-motorcycle"></i></div>
               <div class="v-details">
                 <div class="v-title">
                   <strong>NcengRide Comfort XL</strong>
@@ -241,7 +241,7 @@
 
             <!-- NcengCar Standard -->
             <div class="vehicle-card" onclick="selectVehicle(this, 'gocar_std', 32000)">
-              <div class="v-icon icon-car-outline"><i class="fa-solid fa-car"></i></div>
+              <div class="v-icon icon-unified-green"><i class="fa-solid fa-car"></i></div>
               <div class="v-details">
                 <div class="v-title">
                   <strong>NcengCar Hemat</strong>
@@ -296,7 +296,7 @@
           <div class="payment-methods-card">
             <div class="pay-tile selected" onclick="selectPaymentMethod(this, 'gopay')">
               <i class="fa-solid fa-circle-dot radio-icon"></i>
-              <div class="pay-icon icon-gopay-outline"><i class="fa-regular fa-credit-card"></i></div>
+              <div class="pay-icon icon-unified-green"><i class="fa-regular fa-credit-card"></i></div>
               <div class="pay-info">
                 <strong>GoPay Balance</strong>
                 <small>Saldo: Rp 145.000</small>
@@ -306,7 +306,7 @@
 
             <div class="pay-tile" onclick="selectPaymentMethod(this, 'qris')">
               <i class="fa-regular fa-circle radio-icon"></i>
-              <div class="pay-icon icon-qris-outline"><i class="fa-solid fa-qrcode"></i></div>
+              <div class="pay-icon icon-unified-green"><i class="fa-solid fa-qrcode"></i></div>
               <div class="pay-info">
                 <strong>QRIS Instant</strong>
                 <small>Scan BCA / Mandiri / ShopeePay</small>
@@ -315,7 +315,7 @@
 
             <div class="pay-tile" onclick="selectPaymentMethod(this, 'ovo')">
               <i class="fa-regular fa-circle radio-icon"></i>
-              <div class="pay-icon icon-ovo-outline"><i class="fa-regular fa-gem"></i></div>
+              <div class="pay-icon icon-unified-green"><i class="fa-regular fa-gem"></i></div>
               <div class="pay-info">
                 <strong>OVO / DANA Wallet</strong>
                 <small>Terhubung otomatis</small>
@@ -324,7 +324,7 @@
 
             <div class="pay-tile" onclick="selectPaymentMethod(this, 'cash')">
               <i class="fa-regular fa-circle radio-icon"></i>
-              <div class="pay-icon icon-cash-outline"><i class="fa-regular fa-money-bill-1"></i></div>
+              <div class="pay-icon icon-unified-green"><i class="fa-regular fa-money-bill-1"></i></div>
               <div class="pay-info">
                 <strong>Tunai (Cash)</strong>
                 <small>Bayar ke driver</small>
