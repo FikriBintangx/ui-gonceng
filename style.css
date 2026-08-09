@@ -466,11 +466,11 @@ body {
   background: var(--bg-sheet);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 10px 4px;
+  padding: 12px 4px 10px 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
   transition: var(--transition);
 }
@@ -480,23 +480,24 @@ body {
   background: var(--primary-light);
 }
 
-/* OUTLINE ICON STYLE SPECIFICATION */
+/* PURE OUTLINE ICON - TANPA BACKGROUND BULET */
 .s-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  width: auto;
+  height: 38px;
+  border-radius: 0;
+  border: none;
+  background: transparent !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  border: 1.5px solid currentColor;
+  font-size: 1.6rem;
   transition: var(--transition);
 }
 
-.icon-ride-outline { color: var(--primary); background: var(--primary-light); }
-.icon-car-outline { color: var(--accent-blue); background: #e0f2fe; }
-.icon-send-outline { color: var(--accent-orange); background: #fef3c7; }
-.icon-food-outline { color: var(--accent-red); background: #ffe4e6; }
+.icon-ride-outline { color: var(--primary); }
+.icon-car-outline { color: var(--accent-blue); }
+.icon-send-outline { color: var(--accent-orange); }
+.icon-food-outline { color: var(--accent-red); }
 
 .service-pill span { font-size: 0.72rem; font-weight: 700; color: var(--text-main); }
 
@@ -597,7 +598,7 @@ body {
 
 .vehicle-card.selected { border-color: var(--primary); background: var(--primary-light); }
 
-.v-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.v-icon { width: 38px; height: 38px; border-radius: 0; background: transparent !important; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
 .v-details { flex: 1; }
 .v-title { display: flex; align-items: center; gap: 6px; }
 .v-title strong { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 800; }
@@ -661,12 +662,12 @@ body {
 
 .pay-tile.selected { border-color: var(--primary); background: var(--primary-light); }
 .radio-icon { color: var(--primary); font-size: 1rem; }
-.pay-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; border: 1.5px solid currentColor; }
+.pay-icon { width: 34px; height: 34px; border-radius: 0; background: transparent !important; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: none; }
 
-.icon-gopay-outline { color: var(--primary); background: var(--primary-light); }
-.icon-qris-outline { color: #0f172a; background: #e2e8f0; }
-.icon-ovo-outline { color: #5b21b6; background: #f3e8ff; }
-.icon-cash-outline { color: #15803d; background: #dcfce7; }
+.icon-gopay-outline { color: var(--primary); }
+.icon-qris-outline { color: #0f172a; }
+.icon-ovo-outline { color: #5b21b6; }
+.icon-cash-outline { color: #15803d; }
 
 .pay-info { flex: 1; display: flex; flex-direction: column; }
 .pay-info strong { font-size: 0.78rem; }
