@@ -595,6 +595,23 @@ function appendChatMessage(text, sender) {
 }
 
 /* ================= COLOR CUSTOMIZER ENGINE ================= */
+let brandClickCount = 0;
+let brandClickTimer = null;
+
+function handleBrandTripleClick() {
+  brandClickCount++;
+  if (brandClickTimer) clearTimeout(brandClickTimer);
+
+  if (brandClickCount >= 3) {
+    brandClickCount = 0;
+    toggleColorCustomizer();
+  } else {
+    brandClickTimer = setTimeout(() => {
+      brandClickCount = 0;
+    }, 600);
+  }
+}
+
 function toggleColorCustomizer() {
   const modal = document.getElementById('colorCustomizerModal');
   if (!modal) {
