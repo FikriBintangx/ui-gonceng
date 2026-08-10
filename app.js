@@ -368,3 +368,80 @@ function resetAppToHome() {
 function openChatModal() {
   alert('Chat dengan Budi Santoso:\n"Saya sudah sampai di depan gapura Pintu Barat ya Mas!"');
 }
+
+/* ================= COLOR CUSTOMIZER ENGINE ================= */
+function toggleColorCustomizer() {
+  const modal = document.getElementById('colorCustomizerModal');
+  if (modal) modal.classList.toggle('show');
+}
+
+function updateThemeColor(type, hexColor) {
+  const root = document.documentElement;
+
+  if (type === 'primary') {
+    root.style.setProperty('--primary', hexColor);
+    root.style.setProperty('--primary-dark', adjustColorBrightness(hexColor, -20));
+    root.style.setProperty('--primary-light', hexColor + '18'); // subtle tint
+    const valEl = document.getElementById('valPrimary');
+    if (valEl) valEl.textContent = hexColor.toUpperCase();
+  } 
+  else if (type === 'sheetBg') {
+    root.style.setProperty('--bg-sheet', hexColor);
+    const valEl = document.getElementById('valSheetBg');
+    if (valEl) valEl.textContent = hexColor.toUpperCase();
+  } 
+  else if (type === 'phoneBg') {
+    root.style.setProperty('--bg-phone', hexColor);
+    const valEl = document.getElementById('valPhoneBg');
+    if (valEl) valEl.textContent = hexColor.toUpperCase();
+  } 
+  else if (type === 'textMain') {
+    root.style.setProperty('--text-main', hexColor);
+    const valEl = document.getElementById('valTextMain');
+    if (valEl) valEl.textContent = hexColor.toUpperCase();
+  } 
+  else if (type === 'accentBlue') {
+    root.style.setProperty('--accent-blue', hexColor);
+    const valEl = document.getElementById('valAccentBlue');
+    if (valEl) valEl.textContent = hexColor.toUpperCase();
+  }
+}
+
+function applyPresetTheme(presetName) {
+  const presets = {
+    gojek: { primary: '#00AA13', sheetBg: '#ffffff', phoneBg: '#ffffff', textMain: '#0f172a', accentBlue: '#0284c7' },
+    grab: { primary: '#00b140', sheetBg: '#ffffff', phoneBg: '#ffffff', textMain: '#0f172a', accentBlue: '#0f766e' },
+    shopee: { primary: '#ee4d2d', sheetBg: '#ffffff', phoneBg: '#fafafa', textMain: '#1c1917', accentBlue: '#f97316' },
+    cyberpunk: { primary: '#8b5cf6', sheetBg: '#1e1b4b', phoneBg: '#0f172a', textMain: '#f8fafc', accentBlue: '#ec4899' },
+    ocean: { primary: '#0284c7', sheetBg: '#f0f9ff', phoneBg: '#e0f2fe', textMain: '#0c4a6e', accentBlue: '#0369a1' }
+  };
+
+  const theme = presets[presetName];
+  if (!theme) return;
+
+  // Apply colors & sync inputs
+  updateThemeColor('primary', theme.primary);
+  updateThemeColor('sheetBg', theme.sheetBg);
+  updateThemeColor('phoneBg', theme.phoneBg);
+  updateThemeColor('textMain', theme.textMain);
+  updateThemeColor('accentBlue', theme.accentBlue);
+
+  document.getElementById('pickerPrimary').value = theme.primary;
+  document.getElementById('pickerSheetBg').value = theme.sheetBg;
+  document.getElementById('pickerPhoneBg').value = theme.phoneBg;
+  document.getElementById('pickerTextMain').value = theme.textMain;
+  document.getElementById('pickerAccentBlue').value = theme.accentBlue;
+}
+
+function resetThemeToDefault() {
+  applyPresetTheme('gojek');
+}
+
+function adjustColorBrightness(hex, percent) {
+  let num = parseInt(hex.replace('#',''), 16),
+      amt = Math.round(2.55 * percent),
+      R = (num >> 16) + amt,
+      G = (num >> 8 & 0x00FF) + amt,
+      B = (num & 0x0000FF) + amt;
+  return '#' + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
+}
