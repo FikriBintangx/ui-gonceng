@@ -141,23 +141,27 @@
             <p>Gunakan promo <strong>GONCENGHEMAT</strong> diskon s.d Rp 5.000!</p>
           </div>
 
-          <!-- Service Pill Grid (All Icons Unified Gojek Green & Food Icon Fix) -->
+          <!-- Service Pill Grid (5 Key Services) -->
           <div class="service-pill-grid">
-            <button class="service-pill active" data-service="goride" onclick="selectService('goride')">
+            <button class="service-pill active" data-service="gonceng-ride" onclick="selectService('gonceng-ride')">
               <div class="s-icon icon-unified-green"><i class="fa-solid fa-motorcycle"></i></div>
-              <span>NcengRide</span>
+              <span>Gonceng-Ride</span>
             </button>
-            <button class="service-pill" data-service="gocar" onclick="selectService('gocar')">
-              <div class="s-icon icon-unified-green"><i class="fa-solid fa-car"></i></div>
-              <span>NcengCar</span>
-            </button>
-            <button class="service-pill" data-service="gosend" onclick="selectService('gosend')">
-              <div class="s-icon icon-unified-green"><i class="fa-regular fa-paper-plane"></i></div>
-              <span>NcengSend</span>
-            </button>
-            <button class="service-pill" data-service="gofood" onclick="selectService('gofood')">
+            <button class="service-pill" data-service="gonceng-food" onclick="selectService('gonceng-food')">
               <div class="s-icon icon-unified-green"><i class="fa-solid fa-utensils"></i></div>
-              <span>NcengFood</span>
+              <span>Gonceng-Food</span>
+            </button>
+            <button class="service-pill" data-service="gonceng-send" onclick="selectService('gonceng-send')">
+              <div class="s-icon icon-unified-green"><i class="fa-regular fa-paper-plane"></i></div>
+              <span>Gonceng-Send</span>
+            </button>
+            <button class="service-pill" data-service="gonceng-kids" onclick="selectService('gonceng-kids')">
+              <div class="s-icon icon-unified-green"><i class="fa-solid fa-child-reaching"></i></div>
+              <span>Gonceng-Kids</span>
+            </button>
+            <button class="service-pill" data-service="gonceng-shop" onclick="selectService('gonceng-shop')">
+              <div class="s-icon icon-unified-green"><i class="fa-solid fa-store"></i></div>
+              <span>Gonceng-Shop</span>
             </button>
           </div>
 
@@ -166,7 +170,7 @@
             <div class="route-input-group">
               <div class="pin-dot pickup-dot"></div>
               <div class="input-wrap">
-                <small>JEMPUT</small>
+                <small>JEMPUT / LOKASI ASAL</small>
                 <input type="text" id="inputPickup" value="Stasiun Manggarai, Jakarta Selatan">
               </div>
               <button class="btn-clear-in" onclick="clearInput('inputPickup')"><i class="fa-regular fa-circle-xmark"></i></button>
@@ -177,7 +181,7 @@
             <div class="route-input-group">
               <div class="pin-dot dest-dot"></div>
               <div class="input-wrap">
-                <small>TUJUAN</small>
+                <small>TUJUAN / RESTO / TOKO</small>
                 <input type="text" id="inputDestination" value="Grand Indonesia Mall, Jakarta Pusat">
               </div>
               <button class="btn-clear-in" onclick="clearInput('inputDestination')"><i class="fa-regular fa-circle-xmark"></i></button>
@@ -187,12 +191,12 @@
             <div class="saved-chips-bar">
               <button class="place-chip" onclick="setQuickDest('Kantor Menara BCA, MH Thamrin')"><i class="fa-regular fa-building"></i> Kantor</button>
               <button class="place-chip" onclick="setQuickDest('Apartemen Sudirman Park, Karet')"><i class="fa-regular fa-hospital"></i> Rumah</button>
-              <button class="place-chip" onclick="setQuickDest('Stasiun Gambir, Gambir')"><i class="fa-regular fa-compass"></i> Stasiun</button>
+              <button class="place-chip" onclick="setQuickDest('SD N Menteng 01, Jakarta')"><i class="fa-solid fa-graduation-cap"></i> Sekolah</button>
             </div>
           </div>
 
           <button class="btn-confirm-action" onclick="goToStep(2)">
-            <span>Cari Kendaraan</span>
+            <span>Cari Layanan Gonceng</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -200,21 +204,22 @@
         <!-- ================= PANEL 2: TIPE ORDER & VEHICLES ================= -->
         <div class="sheet-panel" id="panelTipeOrder">
           <div class="sheet-panel-header">
-            <h3>Pilih Tipe Kendaraan</h3>
+            <h3 id="panel2Title">Pilih Layanan & Opsi</h3>
             <p id="routeSummarySub">Stasiun Manggarai ➔ Grand Indonesia (4.2 km)</p>
           </div>
 
           <!-- Vehicle Tiers Scrollable List -->
-          <div class="vehicle-options-list">
-            <!-- NcengRide Standard -->
-            <div class="vehicle-card selected" onclick="selectVehicle(this, 'goride_std', 14000)">
+          <div class="vehicle-options-list" id="vehicleOptionsList">
+            <!-- Dynamic Options will be populated or styled -->
+            <!-- Gonceng-Ride Standard -->
+            <div class="vehicle-card selected" data-vtype="gonceng-ride" onclick="selectVehicle(this, 'gonceng_ride_std', 14000)">
               <div class="v-icon icon-unified-green"><i class="fa-solid fa-motorcycle"></i></div>
               <div class="v-details">
                 <div class="v-title">
-                  <strong>NcengRide Standard</strong>
+                  <strong>Gonceng-Ride Standard</strong>
                   <span class="v-cap"><i class="fa-regular fa-user"></i> 1</span>
                 </div>
-                <small>Motor lincah cepat sampai</small>
+                <small>Memboncengkan penumpang cepat & aman</small>
                 <span class="v-eta"><i class="fa-regular fa-clock"></i> Jemput ~2 mnt</span>
               </div>
               <div class="v-price-wrap">
@@ -223,35 +228,67 @@
               </div>
             </div>
 
-            <!-- NcengRide Comfort XL -->
-            <div class="vehicle-card" onclick="selectVehicle(this, 'goride_xl', 19000)">
-              <div class="v-icon icon-unified-green xl-badge"><i class="fa-solid fa-motorcycle"></i></div>
+            <!-- Gonceng-Food -->
+            <div class="vehicle-card" data-vtype="gonceng-food" onclick="selectVehicle(this, 'gonceng_food_std', 12000)">
+              <div class="v-icon icon-unified-green"><i class="fa-solid fa-utensils"></i></div>
               <div class="v-details">
                 <div class="v-title">
-                  <strong>NcengRide Comfort XL</strong>
-                  <span class="v-cap"><i class="fa-regular fa-user"></i> 1</span>
+                  <strong>Gonceng-Food Express</strong>
+                  <span class="v-cap"><i class="fa-solid fa-bag-shopping"></i> Kuliner</span>
                 </div>
-                <small>Motor matic besar & helm bersih</small>
-                <span class="v-eta"><i class="fa-regular fa-clock"></i> Jemput ~3 mnt</span>
+                <small>Antar makanan/minuman favorit ke pintu rumah</small>
+                <span class="v-eta"><i class="fa-regular fa-clock"></i> Est. ~20 mnt</span>
               </div>
               <div class="v-price-wrap">
-                <strong class="v-price">Rp 19.000</strong>
+                <strong class="v-price">Rp 12.000</strong>
               </div>
             </div>
 
-            <!-- NcengCar Standard -->
-            <div class="vehicle-card" onclick="selectVehicle(this, 'gocar_std', 32000)">
-              <div class="v-icon icon-unified-green"><i class="fa-solid fa-car"></i></div>
+            <!-- Gonceng-Send -->
+            <div class="vehicle-card" data-vtype="gonceng-send" onclick="selectVehicle(this, 'gonceng_send_std', 16000)">
+              <div class="v-icon icon-unified-green"><i class="fa-regular fa-paper-plane"></i></div>
               <div class="v-details">
                 <div class="v-title">
-                  <strong>NcengCar Hemat</strong>
-                  <span class="v-cap"><i class="fa-regular fa-user"></i> 4</span>
+                  <strong>Gonceng-Send Instan</strong>
+                  <span class="v-cap"><i class="fa-solid fa-box"></i> Paket Kecil</span>
                 </div>
-                <small>Mobil AC nyaman anti hujan</small>
-                <span class="v-eta"><i class="fa-regular fa-clock"></i> Jemput ~5 mnt</span>
+                <small>Kirim paket/dokumen instan 1 hari sampai</small>
+                <span class="v-eta"><i class="fa-regular fa-clock"></i> Pengiriman Langsung</span>
               </div>
               <div class="v-price-wrap">
-                <strong class="v-price">Rp 32.000</strong>
+                <strong class="v-price">Rp 16.000</strong>
+              </div>
+            </div>
+
+            <!-- Gonceng-Kids -->
+            <div class="vehicle-card" data-vtype="gonceng-kids" onclick="selectVehicle(this, 'gonceng_kids_std', 22000)">
+              <div class="v-icon icon-unified-green"><i class="fa-solid fa-child-reaching"></i></div>
+              <div class="v-details">
+                <div class="v-title">
+                  <strong>Gonceng-Kids Safety</strong>
+                  <span class="v-cap"><i class="fa-solid fa-shield-halved"></i> Verified</span>
+                </div>
+                <small>Antar-jemput anak sekolah dengan driver terverifikasi</small>
+                <span class="v-eta"><i class="fa-regular fa-clock"></i> Tracking LIVE + Safety Net</span>
+              </div>
+              <div class="v-price-wrap">
+                <strong class="v-price">Rp 22.000</strong>
+              </div>
+            </div>
+
+            <!-- Gonceng-Shop/Mart -->
+            <div class="vehicle-card" data-vtype="gonceng-shop" onclick="selectVehicle(this, 'gonceng_shop_std', 18000)">
+              <div class="v-icon icon-unified-green"><i class="fa-solid fa-store"></i></div>
+              <div class="v-details">
+                <div class="v-title">
+                  <strong>Gonceng-Shop / Mart</strong>
+                  <span class="v-cap"><i class="fa-solid fa-cart-shopping"></i> Titip Belanja</span>
+                </div>
+                <small>Belanja titipan instan di pasar/toko ritel mendesak</small>
+                <span class="v-eta"><i class="fa-regular fa-clock"></i> Belanja ~25 mnt</span>
+              </div>
+              <div class="v-price-wrap">
+                <strong class="v-price">Rp 18.000</strong>
               </div>
             </div>
           </div>

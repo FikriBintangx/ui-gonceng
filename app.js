@@ -4,8 +4,8 @@
 
 const state = {
   currentStep: 1,
-  selectedService: 'goride',
-  selectedVehicle: 'goride_std',
+  selectedService: 'gonceng-ride',
+  selectedVehicle: 'gonceng_ride_std',
   baseFare: 14000,
   discountAmount: 5000,
   voucherCode: 'GONCENGHEMAT',
@@ -149,10 +149,29 @@ function selectService(serviceType) {
   const activeCard = document.querySelector(`.service-pill[data-service="${serviceType}"]`);
   if (activeCard) activeCard.classList.add('active');
 
-  if (serviceType === 'goride') selectVehicle(null, 'goride_std', 14000);
-  else if (serviceType === 'gocar') selectVehicle(null, 'gocar_std', 32000);
-  else if (serviceType === 'gosend') selectVehicle(null, 'goride_std', 16000);
-  else if (serviceType === 'gofood') selectVehicle(null, 'goride_std', 12000);
+  const vCards = document.querySelectorAll('.vehicle-card');
+  vCards.forEach(card => {
+    if (card.dataset.vtype === serviceType) {
+      card.style.display = 'flex';
+      card.click();
+    } else {
+      card.style.display = 'flex'; // show all or filter if clicked
+    }
+  });
+
+  const fares = {
+    'gonceng-ride': { veh: 'gonceng_ride_std', fare: 14000 },
+    'gonceng-food': { veh: 'gonceng_food_std', fare: 12000 },
+    'gonceng-send': { veh: 'gonceng_send_std', fare: 16000 },
+    'gonceng-kids': { veh: 'gonceng_kids_std', fare: 22000 },
+    'gonceng-shop': { veh: 'gonceng_shop_std', fare: 18000 }
+  };
+
+  const target = fares[serviceType] || fares['gonceng-ride'];
+  const targetCard = document.querySelector(`.vehicle-card[data-vtype="${serviceType}"]`);
+  if (targetCard) {
+    selectVehicle(targetCard, target.veh, target.fare);
+  }
 }
 
 function selectVehicle(element, vehId, fare) {
