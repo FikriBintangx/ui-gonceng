@@ -764,19 +764,100 @@ async function exportAsImage() {
       logging: false,
       backgroundColor: bgSheet,
       onclone: (clonedDoc) => {
-        const clonedRoot = clonedDoc.documentElement;
-        clonedRoot.style.setProperty('--primary', primary);
-        clonedRoot.style.setProperty('--text-main', textMain);
-        clonedRoot.style.setProperty('--text-muted', textMuted);
-        clonedRoot.style.setProperty('--bg-sheet', bgSheet);
-        clonedRoot.style.setProperty('--bg-phone', bgSheet);
-        clonedRoot.style.setProperty('--bg-subtle', bgSubtle);
-        clonedRoot.style.setProperty('--border', border);
+        // Inject master override CSS to kill animations/transitions and enforce 100% opacity & contrast
+        const overrideStyle = clonedDoc.createElement('style');
+        overrideStyle.innerHTML = `
+          * {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+          }
+          .sheet-panel, .sheet-panel.active {
+            display: block !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+          .sheet-panel:not(.active) {
+            display: none !important;
+          }
+          .floating-bottom-sheet {
+            background-color: ${bgSheet} !important;
+            color: ${textMain} !important;
+            opacity: 1 !important;
+          }
+          .promo-ticker {
+            background-color: ${bgSubtle} !important;
+            border: 1px solid ${border} !important;
+            color: ${textMain} !important;
+            opacity: 1 !important;
+          }
+          .promo-ticker p, .promo-ticker p strong {
+            color: ${textMain} !important;
+            opacity: 1 !important;
+          }
+          .service-pill {
+            background-color: ${bgSheet} !important;
+            border: 1.5px solid ${border} !important;
+            opacity: 1 !important;
+          }
+          .service-pill.active {
+            background-color: ${primary}18 !important;
+            border-color: ${primary} !important;
+          }
+          .service-pill span {
+            color: ${textMain} !important;
+            opacity: 1 !important;
+            font-weight: 800 !important;
+          }
+          .icon-unified-green {
+            color: ${primary} !important;
+            opacity: 1 !important;
+          }
+          .location-card {
+            background-color: ${bgSubtle} !important;
+            border: 1px solid ${border} !important;
+            color: ${textMain} !important;
+            opacity: 1 !important;
+          }
+          .input-wrap small {
+            color: ${textMuted} !important;
+            opacity: 1 !important;
+            font-weight: 800 !important;
+          }
+          .place-chip {
+            background-color: ${bgSheet} !important;
+            border: 1px solid ${border} !important;
+            color: ${textMain} !important;
+            opacity: 1 !important;
+            font-weight: 700 !important;
+          }
+          .btn-confirm-action {
+            background-color: ${primary} !important;
+            color: #ffffff !important;
+            opacity: 1 !important;
+            font-weight: 900 !important;
+          }
+          .map-bottom-nav {
+            background-color: ${bgSheet} !important;
+            border-top: 1px solid ${border} !important;
+            opacity: 1 !important;
+          }
+          .nav-tab {
+            color: ${textMuted} !important;
+            opacity: 1 !important;
+          }
+          .nav-tab.active {
+            color: ${primary} !important;
+            opacity: 1 !important;
+          }
+        `;
+        clonedDoc.head.appendChild(overrideStyle);
 
         const clonedTarget = clonedDoc.getElementById('phoneScreen') || clonedDoc.querySelector('.phone-shell');
         if (!clonedTarget) return;
 
-        // Force explicit background on cloned phone screen
         clonedTarget.style.backgroundColor = bgSheet;
 
         // Replace all input elements with span elements showing input values clearly
@@ -786,28 +867,13 @@ async function exportAsImage() {
           const span = clonedDoc.createElement('span');
           span.textContent = val;
           span.style.color = textMain;
-          span.style.fontWeight = '700';
+          span.style.fontWeight = '800';
           span.style.fontSize = '0.82rem';
           span.style.display = 'block';
           span.style.width = '100%';
           span.style.lineHeight = '1.2';
           if (input.parentNode) {
             input.parentNode.replaceChild(span, input);
-          }
-        });
-
-        // Inline computed style colors for all children to prevent transparency / variable resolution bugs
-        const allElements = clonedTarget.querySelectorAll('*');
-        allElements.forEach(el => {
-          const computed = window.getComputedStyle(el);
-          if (computed.color && computed.color !== 'rgba(0, 0, 0, 0)') {
-            el.style.color = computed.color;
-          }
-          if (computed.backgroundColor && computed.backgroundColor !== 'rgba(0, 0, 0, 0)') {
-            el.style.backgroundColor = computed.backgroundColor;
-          }
-          if (computed.borderColor && computed.borderColor !== 'rgba(0, 0, 0, 0)') {
-            el.style.borderColor = computed.borderColor;
           }
         });
       }
