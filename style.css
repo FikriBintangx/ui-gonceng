@@ -57,6 +57,8 @@ body {
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+  overflow-y: auto;
+  padding: 2vh 0;
 }
 
 /* ================= DESKTOP BACKDROP HERO ================= */
@@ -221,16 +223,20 @@ body {
   position: relative;
   z-index: 10;
   width: 410px;
+  max-width: 90vw;
   height: 840px;
+  max-height: 92vh;
   background: #000000;
   border-radius: var(--radius-phone);
   padding: 12px;
   box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.85),
-              0 0 0 10px #111827,
-              0 0 0 12px #1f2937;
+              0 0 0 8px #111827,
+              0 0 0 10px #1f2937;
   transition: var(--transition);
   margin-left: auto;
   margin-right: 6vw;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
 }
 
 .phone-island {
