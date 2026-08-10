@@ -799,15 +799,16 @@ body {
 .text-green { color: var(--primary) !important; }
 .text-muted { color: var(--text-muted) !important; }
 
-/* EMBEDDED SIDEBAR COLOR CUSTOMIZER */
+/* EMBEDDED SIDEBAR COLOR CUSTOMIZER (FIXED DARK CONTRAST PANEL) */
 .sidebar-color-customizer {
-  background: rgba(15, 23, 42, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(16px);
   border-radius: var(--radius-md);
   padding: 16px;
   margin-top: 1.2rem;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  color: #ffffff !important;
 }
 
 .customizer-title {
@@ -824,12 +825,12 @@ body {
 .customizer-title strong {
   display: block;
   font-size: 0.95rem;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .customizer-title small {
   font-size: 0.7rem;
-  color: #94a3b8;
+  color: #94a3b8 !important;
 }
 
 .custom-section {
@@ -839,7 +840,7 @@ body {
 .custom-label {
   font-size: 0.7rem;
   font-weight: 800;
-  color: var(--text-muted);
+  color: #94a3b8 !important;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 8px;
@@ -854,20 +855,20 @@ body {
 
 .preset-pill {
   padding: 6px 8px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-xs);
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--text-main);
+  color: #ffffff !important;
   cursor: pointer;
   text-align: left;
   transition: var(--transition);
 }
 
 .preset-pill:hover {
-  background: var(--primary-light);
-  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .color-picker-grid {
@@ -882,11 +883,15 @@ body {
   justify-content: space-between;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-main);
-  background: var(--bg-subtle);
+  color: #f8fafc !important;
+  background: rgba(255, 255, 255, 0.06);
   padding: 8px 12px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.picker-item span {
+  color: #f8fafc !important;
 }
 
 .picker-input-wrap {
@@ -910,14 +915,14 @@ body {
 }
 
 .picker-input-wrap input[type="color"]::-webkit-color-swatch {
-  border: 2px solid var(--border);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
 }
 
 .picker-input-wrap code {
   font-size: 0.7rem;
   font-family: monospace;
-  color: var(--text-muted);
+  color: #cbd5e1 !important;
 }
 
 .customizer-actions {
@@ -928,20 +933,21 @@ body {
 
 .btn-reset-theme {
   padding: 10px 14px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-sm);
   font-weight: 700;
   font-size: 0.78rem;
-  color: var(--text-main);
+  color: #ffffff !important;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: var(--transition);
 }
 
 .btn-reset-theme:hover {
-  background: #f1f5f9;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* COLOR CUSTOMIZER OVERLAY & MODAL CARD */
