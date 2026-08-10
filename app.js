@@ -372,7 +372,17 @@ function openChatModal() {
 /* ================= COLOR CUSTOMIZER ENGINE ================= */
 function toggleColorCustomizer() {
   const modal = document.getElementById('colorCustomizerModal');
-  if (modal) modal.classList.toggle('show');
+  if (!modal) {
+    console.error('Modal colorCustomizerModal tidak ditemukan!');
+    return;
+  }
+  if (modal.style.display === 'flex' || modal.classList.contains('show')) {
+    modal.style.display = 'none';
+    modal.classList.remove('show');
+  } else {
+    modal.style.display = 'flex';
+    modal.classList.add('show');
+  }
 }
 
 function updateThemeColor(type, hexColor) {
