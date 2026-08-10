@@ -147,6 +147,7 @@ body {
 .hero-accent {
   background: linear-gradient(135deg, #ffffff 20%, #4ade80 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -777,8 +778,21 @@ body {
 .nav-tab i { font-size: 1.1rem; }
 .nav-tab.active { color: var(--primary); }
 
-/* VOUCHER MODAL */
-.modal-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 1200; display: none; align-items: flex-end; }
+/* VOUCHER & DIALOG MODAL (INSIDE SMARTPHONE SCREEN) */
+.modal-overlay { 
+  position: absolute; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65); 
+  backdrop-filter: blur(4px);
+  z-index: 1200; 
+  display: none; 
+  align-items: flex-end; 
+  border-radius: calc(var(--radius-phone) - 8px);
+  overflow: hidden;
+}
 .modal-overlay.show { display: flex; }
 .modal-sheet { background: var(--bg-sheet); width: 100%; border-radius: 20px 20px 0 0; padding: 16px; animation: slideUp 0.3s ease; }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
@@ -902,6 +916,7 @@ body {
 
 .picker-input-wrap input[type="color"] {
   -webkit-appearance: none;
+  appearance: none;
   border: none;
   width: 28px;
   height: 28px;
