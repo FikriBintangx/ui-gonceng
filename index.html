@@ -181,15 +181,12 @@
           <button class="btn-icon-blur" id="btnBack" style="display: none;">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
-          <div class="app-brand-pill" data-color-target="primary" title="Klik untuk ubah Warna Utama">
+          <div class="app-brand-pill">
             <span class="b-go">GO</span><span class="b-nceng">-NCENG</span>
           </div>
         </div>
 
-        <div class="header-right" style="display: flex; gap: 6px; align-items: center;">
-          <button class="gopay-floating-chip" onclick="toggleColorCustomizer()" title="Custom Warna App" style="cursor: pointer; padding: 6px 10px;">
-            <i class="fa-solid fa-palette text-green"></i>
-          </button>
+        <div class="header-right">
           <div class="gopay-floating-chip" onclick="alert('Saldo GoPay: Rp 145.000 (Siap Digunakan)')">
             <i class="fa-regular fa-credit-card text-green"></i>
             <div class="chip-val">
@@ -209,37 +206,37 @@
       </button>
 
       <!-- ================= FLOATING INTERACTIVE BOTTOM SHEET ================= -->
-      <section class="floating-bottom-sheet" id="bottomSheet" data-color-target="sheetBg" title="Klik untuk ubah Warna Card / Sheet">
+      <section class="floating-bottom-sheet" id="bottomSheet">
         <div class="sheet-drag-handle"></div>
 
         <!-- ================= PANEL 1: HOME & SEARCH ALAMAT ================= -->
         <div class="sheet-panel active" id="panelAlamat">
           
           <!-- Promo Ticker Bar -->
-          <div class="promo-ticker" data-color-target="textMain" title="Klik untuk ubah Warna Teks Utama">
+          <div class="promo-ticker">
             <span class="ticker-badge"><i class="fa-regular fa-face-smile"></i> DISKON 50%</span>
             <p>Gunakan promo <strong>GONCENGHEMAT</strong> diskon s.d Rp 5.000!</p>
           </div>
 
           <!-- Service Pill Grid (5 Key Services) -->
           <div class="service-pill-grid">
-            <button class="service-pill active" data-service="gonceng-ride" onclick="selectService('gonceng-ride')" data-color-target="primary">
+            <button class="service-pill active" data-service="gonceng-ride" onclick="selectService('gonceng-ride')">
               <div class="s-icon icon-unified-green"><i class="fa-solid fa-motorcycle"></i></div>
               <span>Gonceng-Ride</span>
             </button>
-            <button class="service-pill" data-service="gonceng-food" onclick="selectService('gonceng-food')" data-color-target="primary">
+            <button class="service-pill" data-service="gonceng-food" onclick="selectService('gonceng-food')">
               <div class="s-icon icon-unified-green"><i class="fa-solid fa-utensils"></i></div>
               <span>Gonceng-Food</span>
             </button>
-            <button class="service-pill" data-service="gonceng-send" onclick="selectService('gonceng-send')" data-color-target="primary">
+            <button class="service-pill" data-service="gonceng-send" onclick="selectService('gonceng-send')">
               <div class="s-icon icon-unified-green"><i class="fa-regular fa-paper-plane"></i></div>
               <span>Gonceng-Send</span>
             </button>
-            <button class="service-pill" data-service="gonceng-kids" onclick="selectService('gonceng-kids')" data-color-target="primary">
+            <button class="service-pill" data-service="gonceng-kids" onclick="selectService('gonceng-kids')">
               <div class="s-icon icon-unified-green"><i class="fa-solid fa-child-reaching"></i></div>
               <span>Gonceng-Kids</span>
             </button>
-            <button class="service-pill" data-service="gonceng-shop" onclick="selectService('gonceng-shop')" data-color-target="primary">
+            <button class="service-pill" data-service="gonceng-shop" onclick="selectService('gonceng-shop')">
               <div class="s-icon icon-unified-green"><i class="fa-solid fa-store"></i></div>
               <span>Gonceng-Shop</span>
             </button>
