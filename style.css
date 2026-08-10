@@ -422,13 +422,24 @@ body {
   background: var(--bg-sheet);
   border-radius: 26px 26px 0 0;
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
-  padding: 12px 16px 70px 16px;
-  max-height: 75%;
+  padding: 12px 16px 85px 16px;
+  max-height: 88%;
   overflow-y: auto;
   transition: var(--transition);
 }
 
-.floating-bottom-sheet::-webkit-scrollbar { display: none; }
+.floating-bottom-sheet::-webkit-scrollbar {
+  width: 4px;
+}
+
+.floating-bottom-sheet::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.floating-bottom-sheet::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
 
 .sheet-drag-handle {
   width: 40px;
