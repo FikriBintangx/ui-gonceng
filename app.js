@@ -735,12 +735,15 @@ function adjustColorBrightness(hex, percent) {
 }
 
 /* ================= EXPORT AS IMAGE (PNG) & VIDEO (WEBM/MP4) ================= */
-async function exportAsImage() {
-  const target = document.getElementById('phoneScreen') || document.querySelector('.phone-shell');
-  const btn = document.getElementById('btnExportImage');
+async function exportAsImage(mode = 'shell') {
+  const target = (mode === 'shell')
+    ? (document.getElementById('phoneShell') || document.querySelector('.phone-shell'))
+    : (document.getElementById('phoneScreen') || document.querySelector('.phone-screen'));
+
+  const btn = mode === 'shell' ? document.getElementById('btnExportShell') : document.getElementById('btnExportScreen');
   const origText = btn ? btn.innerHTML : '';
 
-  if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing PNG...';
+  if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
 
   try {
     if (typeof html2canvas === 'undefined') {
@@ -762,7 +765,7 @@ async function exportAsImage() {
       allowTaint: true,
       scale: 2.5,
       logging: false,
-      backgroundColor: bgSheet,
+      backgroundColor: mode === 'shell' ? null : bgSheet,
       onclone: (clonedDoc) => {
         // Inject master override CSS to kill animations/transitions and enforce 100% opacity & contrast
         const overrideStyle = clonedDoc.createElement('style');
