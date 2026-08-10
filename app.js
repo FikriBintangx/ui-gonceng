@@ -56,6 +56,25 @@ function initClock() {
   setInterval(updateTime, 10000);
 }
 
+// Dynamic Geocoding Location Database
+const locationGeoDatabase = {
+  'stasiun manggarai': [-6.2099, 106.8502],
+  'stasiun manggarai, jakarta selatan': [-6.2099, 106.8502],
+  'grand indonesia': [-6.1953, 106.8202],
+  'grand indonesia mall, jakarta pusat': [-6.1953, 106.8202],
+  'kantor menara bca': [-6.1945, 106.8198],
+  'kantor menara bca, mh thamrin': [-6.1945, 106.8198],
+  'apartemen sudirman park': [-6.2078, 106.8180],
+  'apartemen sudirman park, karet': [-6.2078, 106.8180],
+  'sd n menteng 01': [-6.1990, 106.8330],
+  'sd n menteng 01, jakarta': [-6.1990, 106.8330],
+  'monas': [-6.1754, 106.8272],
+  'stasiun gambir': [-6.1767, 106.8306],
+  'bandara soekarno hatta': [-6.1275, 106.6537],
+  'blok m plaza': [-6.2446, 106.7981],
+  'pondok indah mall': [-6.2652, 106.7844]
+};
+
 /* ================= SINGLE FULL CANVAS MAP ENGINE ================= */
 function initMainMap() {
   if (!document.getElementById('mainMap')) return;
@@ -69,18 +88,80 @@ function initMainMap() {
 
   const pickupIcon = L.divIcon({
     className: 'custom-map-pin',
-    html: '<div style="background:#00AA13; width:18px; height:18px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 12px rgba(0,0,0,0.5);"></div>',
-    iconSize: [18, 18]
+    html: '<div style="background:#00AA13; width:20px; height:20px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 12px rgba(0,0,0,0.5);"></div>',
+    iconSize: [20, 20]
   });
 
   const destIcon = L.divIcon({
     className: 'custom-map-pin',
-    html: '<div style="background:#ef4444; width:18px; height:18px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 12px rgba(0,0,0,0.5);"></div>',
-    iconSize: [18, 18]
+    html: '<div style="background:#ef4444; width:20px; height:20px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 12px rgba(0,0,0,0.5);"></div>',
+    iconSize: [20, 20]
   });
 
-  state.pickupMarker = L.marker(state.pickupCoords, { icon: pickupIcon }).addTo(state.mainMap).bindPopup("Jemput: Stasiun Manggarai");
-  state.destMarker = L.marker(state.destCoords, { icon: destIcon }).addTo(state.mainMap).bindPopup("Tujuan: Grand Indonesia");
+  state.pickupMarker = L.marker(state.pickupCoords, { icon: pickupIcon }).addTo(state.mainMap).bindPopup("Jemput: " + state.pickupLocation);
+  state.destMarker = L.marker(state.destCoords, { icon: destIcon }).addTo(state.mainMap).bindPopup("Tujuan: " + state.destLocation);
+
+  // Attach dynamic input event listeners for instant map updates
+  const inPickup = document.getElementById('inputPickup');
+  const inDest = document.getElementById('inputDestination');
+
+  if (inPickup) {
+    inPickup.addEventListener('input', () => updateLocationCoords('pickup', inPickup.value));
+  }
+  if (inDest) {
+    inDest.addEventListener('input', () => updateLocationCoords('dest', inDest.value));
+  }
+}
+
+function getCoordsFromText(text, isPickup = false) {
+  if (!text || !text.trim()) return isPickup ? [-6.2099, 106.8502] : [-6.1953, 106.8202];
+  const query = text.trim().toLowerCase();
+  
+  for (const key in locationGeoDatabase) {
+    if (query.includes(key) || key.includes(query)) {
+      return locationGeoDatabase[key];
+    }
+  }
+
+  // Generate dynamic pseudo-coordinates around Jakarta center based on string hash if not in dict
+  let hash = 0;
+  for (let i = 0; i < text.length; i++) {
+    hash = text.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const latOffset = ((hash % 100) / 2000);
+  const lngOffset = (((hash >> 2) % 100) / 2000);
+  
+  const baseLat = isPickup ? -6.2099 : -6.1953;
+  const baseLng = isPickup ? 106.8502 : 106.8202;
+
+  return [baseLat + latOffset, baseLng + lngOffset];
+}
+
+function updateLocationCoords(type, locationName) {
+  if (!state.mainMap) return;
+
+  if (type === 'pickup') {
+    state.pickupLocation = locationName;
+    state.pickupCoords = getCoordsFromText(locationName, true);
+    if (state.pickupMarker) {
+      state.pickupMarker.setLatLng(state.pickupCoords);
+      state.pickupMarker.bindPopup("Jemput: " + locationName);
+    }
+  } else if (type === 'dest') {
+    state.destLocation = locationName;
+    state.destCoords = getCoordsFromText(locationName, false);
+    if (state.destMarker) {
+      state.destMarker.setLatLng(state.destCoords);
+      state.destMarker.bindPopup("Tujuan: " + locationName);
+    }
+  }
+
+  // Auto update polyline route & zoom bounds if line is shown
+  if (state.routePolyline || state.currentStep >= 2) {
+    showRoutePolylineOnMap();
+  } else {
+    state.mainMap.panTo(type === 'pickup' ? state.pickupCoords : state.destCoords);
+  }
 }
 
 function recenterMapToUser() {
@@ -265,13 +346,17 @@ function setQuickDest(placeName) {
   const destInput = document.getElementById('inputDestination');
   if (destInput) {
     destInput.value = placeName;
-    state.destLocation = placeName;
+    updateLocationCoords('dest', placeName);
   }
 }
 
 function clearInput(inputId) {
   const el = document.getElementById(inputId);
-  if (el) el.value = '';
+  if (el) {
+    el.value = '';
+    const type = inputId === 'inputPickup' ? 'pickup' : 'dest';
+    updateLocationCoords(type, '');
+  }
 }
 
 function toggleVoucherModal() {
