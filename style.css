@@ -487,6 +487,12 @@ body {
   padding: 2px 6px;
   border-radius: 100px;
   white-space: nowrap;
+  animation: badgePulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
+  50% { transform: scale(1.06); box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
 }
 
 .promo-ticker p { font-size: 0.72rem; }
@@ -508,10 +514,29 @@ body {
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.service-pill:hover, .service-pill.active {
+.service-pill:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.service-pill:active {
+  transform: scale(0.92);
+}
+
+.service-pill:hover .s-icon i {
+  animation: iconWiggle 0.5s ease-in-out;
+}
+
+@keyframes iconWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-12deg) scale(1.15); }
+  75% { transform: rotate(12deg) scale(1.15); }
+}
+
+.service-pill.active {
   border-color: var(--primary);
   background: var(--primary-light);
 }
@@ -550,7 +575,16 @@ body {
 }
 
 .pin-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-.pickup-dot { background: var(--primary); box-shadow: 0 0 0 3px rgba(0, 170, 19, 0.2); }
+.pickup-dot { 
+  background: var(--primary); 
+  animation: pickupPulse 1.8s infinite;
+}
+@keyframes pickupPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 170, 19, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(0, 170, 19, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 170, 19, 0); }
+}
+
 .dest-dot { background: var(--accent-red); box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2); }
 
 .route-line { width: 2px; height: 14px; background: var(--border); margin-left: 5px; }
@@ -559,7 +593,8 @@ body {
 .input-wrap small { font-size: 0.58rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.05em; }
 .input-wrap input { border: none; background: transparent; outline: none; font-size: 0.82rem; font-weight: 700; color: var(--text-main); width: 100%; }
 
-.btn-clear-in { border: none; background: transparent; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; }
+.btn-clear-in { border: none; background: transparent; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; transition: transform 0.2s ease; }
+.btn-clear-in:hover { transform: rotate(90deg) scale(1.1); }
 
 .saved-chips-bar {
   display: flex;
@@ -585,6 +620,16 @@ body {
   color: var(--text-main);
   white-space: nowrap;
   cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, border-color 0.2s ease;
+}
+
+.place-chip:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: var(--primary);
+}
+
+.place-chip:active {
+  transform: scale(0.94);
 }
 
 .place-chip i { font-size: 0.85rem; color: var(--text-muted); }
@@ -605,7 +650,21 @@ body {
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-confirm-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 170, 19, 0.35);
+}
+
+.btn-confirm-action:active {
+  transform: scale(0.96);
+}
+
+.btn-confirm-action:hover i {
+  transform: translateX(4px);
+  transition: transform 0.2s ease;
 }
 
 .btn-confirm-action:hover { background: var(--primary-dark); }

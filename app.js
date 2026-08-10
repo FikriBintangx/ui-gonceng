@@ -526,8 +526,79 @@ function submitRating() {
     btn.textContent = msg;
     btn.style.background = '#00AA13';
     btn.style.color = '#ffffff';
+    triggerConfetti();
   }
 }
+
+/* Canvas Confetti Particles Celebration Animation */
+function triggerConfetti() {
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '999999';
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const colors = ['#00AA13', '#f59e0b', '#0284c7', '#ef4444', '#8b5cf6', '#ec4899'];
+
+  for (let i = 0; i < 70; i++) {
+    particles.push({
+      x: window.innerWidth / 2 + (Math.random() * 200 - 100),
+      y: window.innerHeight / 2 + (Math.random() * 200 - 100),
+      vx: (Math.random() - 0.5) * 12,
+      vy: (Math.random() - 0.5) * 14 - 4,
+      size: Math.random() * 8 + 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      rotation: Math.random() * 360,
+      rSpeed: (Math.random() - 0.5) * 10
+    });
+  }
+
+  let frame = 0;
+  function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.3;
+      p.rotation += p.rSpeed;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+      ctx.restore();
+    });
+
+    frame++;
+    if (frame < 90) {
+      requestAnimationFrame(render);
+    } else {
+      if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+    }
+  }
+  render();
+}
+
+/* Desktop Mouse 3D Parallax Tilt */
+document.addEventListener('mousemove', (e) => {
+  if (window.innerWidth < 900) return;
+  const phone = document.getElementById('phoneShell');
+  if (!phone) return;
+
+  const x = (window.innerWidth / 2 - e.clientX) / 50;
+  const y = (window.innerHeight / 2 - e.clientY) / 50;
+  phone.style.transform = `perspective(1000px) rotateY(${-x}deg) rotateX(${y}deg)`;
+});
 
 /* QRIS Modal & Simulation (Point 11) */
 function toggleQrisModal() {
