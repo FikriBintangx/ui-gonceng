@@ -748,14 +748,69 @@ async function exportAsImage() {
       return;
     }
 
-    const sheetBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-sheet').trim() || '#ffffff';
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const rootStyle = window.getComputedStyle(document.documentElement);
+    const primary = rootStyle.getPropertyValue('--primary').trim() || '#00AA13';
+    const textMain = rootStyle.getPropertyValue('--text-main').trim() || (isDarkMode ? '#f8fafc' : '#0f172a');
+    const textMuted = rootStyle.getPropertyValue('--text-muted').trim() || '#64748b';
+    const bgSheet = rootStyle.getPropertyValue('--bg-sheet').trim() || (isDarkMode ? '#1e293b' : '#ffffff');
+    const bgSubtle = rootStyle.getPropertyValue('--bg-subtle').trim() || (isDarkMode ? '#0f172a' : '#f8fafc');
+    const border = rootStyle.getPropertyValue('--border').trim() || '#e2e8f0';
 
     const canvas = await html2canvas(target, {
       useCORS: true,
       allowTaint: true,
       scale: 2.5,
       logging: false,
-      backgroundColor: sheetBg || '#ffffff'
+      backgroundColor: bgSheet,
+      onclone: (clonedDoc) => {
+        const clonedRoot = clonedDoc.documentElement;
+        clonedRoot.style.setProperty('--primary', primary);
+        clonedRoot.style.setProperty('--text-main', textMain);
+        clonedRoot.style.setProperty('--text-muted', textMuted);
+        clonedRoot.style.setProperty('--bg-sheet', bgSheet);
+        clonedRoot.style.setProperty('--bg-phone', bgSheet);
+        clonedRoot.style.setProperty('--bg-subtle', bgSubtle);
+        clonedRoot.style.setProperty('--border', border);
+
+        const clonedTarget = clonedDoc.getElementById('phoneScreen') || clonedDoc.querySelector('.phone-shell');
+        if (!clonedTarget) return;
+
+        // Force explicit background on cloned phone screen
+        clonedTarget.style.backgroundColor = bgSheet;
+
+        // Replace all input elements with span elements showing input values clearly
+        const inputs = clonedTarget.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => {
+          const val = input.value || input.placeholder || '';
+          const span = clonedDoc.createElement('span');
+          span.textContent = val;
+          span.style.color = textMain;
+          span.style.fontWeight = '700';
+          span.style.fontSize = '0.82rem';
+          span.style.display = 'block';
+          span.style.width = '100%';
+          span.style.lineHeight = '1.2';
+          if (input.parentNode) {
+            input.parentNode.replaceChild(span, input);
+          }
+        });
+
+        // Inline computed style colors for all children to prevent transparency / variable resolution bugs
+        const allElements = clonedTarget.querySelectorAll('*');
+        allElements.forEach(el => {
+          const computed = window.getComputedStyle(el);
+          if (computed.color && computed.color !== 'rgba(0, 0, 0, 0)') {
+            el.style.color = computed.color;
+          }
+          if (computed.backgroundColor && computed.backgroundColor !== 'rgba(0, 0, 0, 0)') {
+            el.style.backgroundColor = computed.backgroundColor;
+          }
+          if (computed.borderColor && computed.borderColor !== 'rgba(0, 0, 0, 0)') {
+            el.style.borderColor = computed.borderColor;
+          }
+        });
+      }
     });
 
     const link = document.createElement('a');
