@@ -89,6 +89,48 @@ function recenterMapToUser() {
   }
 }
 
+/* ================= TAB NAVIGATION ENGINE (BERANDA, PROMO, PESANAN, AKUN) ================= */
+function switchTab(tabName) {
+  // Hide all sheet panels
+  document.querySelectorAll('.sheet-panel').forEach(panel => panel.classList.remove('active'));
+
+  // Highlight active nav tab
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    if (tab.dataset.tab === tabName) tab.classList.add('active');
+    else tab.classList.remove('active');
+  });
+
+  const btnBack = document.getElementById('btnBack');
+  if (btnBack) btnBack.style.display = 'none';
+
+  if (tabName === 'beranda') {
+    state.currentStep = 1;
+    const panelAlamat = document.getElementById('panelAlamat');
+    if (panelAlamat) panelAlamat.classList.add('active');
+  } else if (tabName === 'promo') {
+    const panelPromo = document.getElementById('panelPromo');
+    if (panelPromo) panelPromo.classList.add('active');
+  } else if (tabName === 'pesanan') {
+    const panelPesanan = document.getElementById('panelPesanan');
+    if (panelPesanan) panelPesanan.classList.add('active');
+  } else if (tabName === 'akun') {
+    const panelAkun = document.getElementById('panelAkun');
+    if (panelAkun) panelAkun.classList.add('active');
+  }
+}
+
+function claimCustomPromoCode() {
+  const input = document.getElementById('customPromoInput');
+  if (!input || !input.value.trim()) {
+    alert('Silakan masukkan kode promo!');
+    return;
+  }
+  const code = input.value.trim().toUpperCase();
+  applyVoucher(code, 8000, `PROMO ${code}`, `Potongan Rp 8.000 untuk transaksi Gonceng`);
+  alert(`🎉 Kode promo ${code} berhasil diaktifkan! Diskon Rp 8.000 terpasang.`);
+  switchTab('beranda');
+}
+
 /* ================= STEP NAVIGATION & MAP OVERLAYS ================= */
 function goToStep(stepNum) {
   state.currentStep = stepNum;

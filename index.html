@@ -557,25 +557,155 @@
             <i class="fa-regular fa-building"></i>
             <span>Kembali ke Beranda</span>
           </button>
+        <!-- ================= PANEL PROMO ================= -->
+        <div class="sheet-panel" id="panelPromo">
+          <div class="tab-view-header">
+            <h3><i class="fa-solid fa-ticket text-green"></i> Promo & Voucher Hemat</h3>
+            <p>Gunakan kode voucher & klaim diskon hingga 80%</p>
+          </div>
+
+          <div class="promo-code-input-row">
+            <input type="text" id="customPromoInput" placeholder="Masukkan kode promo (mis. GONCENGSUPER)...">
+            <button class="btn-apply-code" onclick="claimCustomPromoCode()">Gunakan</button>
+          </div>
+
+          <div class="promo-cards-scroll">
+            <div class="promo-hero-banner">
+              <span class="p-badge">FLASH SALE</span>
+              <h4>GONCENGHEMAT</h4>
+              <p>Diskon Rp 5.000 Tanpa Min. Transaksi untuk Gonceng-Ride & Gonceng-Food</p>
+              <button class="btn-claim-promo" onclick="applyVoucher('GONCENGHEMAT', 5000, 'DISKON RP 5.000', 'Potongan Rp 5.000 tanpa min. transaksi'); switchTab('beranda');">Pakai Promo</button>
+            </div>
+
+            <div class="promo-item-card">
+              <div class="p-icon-box"><i class="fa-solid fa-utensils"></i></div>
+              <div class="p-info">
+                <strong>NCENGMAKAN50</strong>
+                <small>Diskon 50% max Rp 15.000 untuk Gonceng-Food</small>
+                <span class="exp-tag"><i class="fa-regular fa-clock"></i> Berakhir 3 Hari lagi</span>
+              </div>
+              <button class="btn-sm-claim" onclick="applyVoucher('NCENGMAKAN50', 15000, 'GONCENG-FOOD 50%', 'Diskon 50% max Rp 15.000'); switchTab('beranda');">Pakai</button>
+            </div>
+
+            <div class="promo-item-card">
+              <div class="p-icon-box"><i class="fa-solid fa-child-reaching"></i></div>
+              <div class="p-info">
+                <strong>KIDSSAFETY10K</strong>
+                <small>Potongan Rp 10.000 khusus Gonceng-Kids Sekolah</small>
+                <span class="exp-tag"><i class="fa-regular fa-clock"></i> Berakhir 7 Hari lagi</span>
+              </div>
+              <button class="btn-sm-claim" onclick="applyVoucher('KIDSSAFETY10K', 10000, 'KIDS SAFETY 10K', 'Potongan Rp 10.000 Gonceng-Kids'); switchTab('beranda');">Pakai</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PANEL PESANAN (RIWAYAT) ================= -->
+        <div class="sheet-panel" id="panelPesanan">
+          <div class="tab-view-header">
+            <h3><i class="fa-regular fa-clock text-green"></i> Riwayat Pesanan Saya</h3>
+            <p>Daftar transaksi perjalanan & layanan Gonceng</p>
+          </div>
+
+          <div class="history-list">
+            <div class="history-card">
+              <div class="h-top">
+                <span class="h-service-tag"><i class="fa-solid fa-motorcycle"></i> Gonceng-Ride</span>
+                <span class="h-status-badge success">Selesai</span>
+              </div>
+              <div class="h-body">
+                <strong>Stasiun Manggarai ➔ Grand Indonesia</strong>
+                <small>09 Aug 2026, 09:41 WIB • Driver: Budi Santoso</small>
+              </div>
+              <div class="h-foot">
+                <span class="h-price">Rp 11.000</span>
+                <button class="btn-reorder" onclick="setQuickDest('Grand Indonesia Mall, Jakarta Pusat'); switchTab('beranda');">Pesan Lagi</button>
+              </div>
+            </div>
+
+            <div class="history-card">
+              <div class="h-top">
+                <span class="h-service-tag"><i class="fa-solid fa-utensils"></i> Gonceng-Food</span>
+                <span class="h-status-badge success">Selesai</span>
+              </div>
+              <div class="h-body">
+                <strong>Nasi Goreng Kambing Kebon Sirih</strong>
+                <small>08 Aug 2026, 19:15 WIB • 2 Porsi Nasi Goreng</small>
+              </div>
+              <div class="h-foot">
+                <span class="h-price">Rp 42.000</span>
+                <button class="btn-reorder" onclick="switchTab('beranda'); selectService('gonceng-food');">Pesan Lagi</button>
+              </div>
+            </div>
+
+            <div class="history-card">
+              <div class="h-top">
+                <span class="h-service-tag"><i class="fa-solid fa-child-reaching"></i> Gonceng-Kids</span>
+                <span class="h-status-badge success">Selesai</span>
+              </div>
+              <div class="h-body">
+                <strong>Antar Jemput SD N Menteng 01</strong>
+                <small>07 Aug 2026, 14:00 WIB • Driver Terverifikasi</small>
+              </div>
+              <div class="h-foot">
+                <span class="h-price">Rp 22.000</span>
+                <button class="btn-reorder" onclick="switchTab('beranda'); selectService('gonceng-kids');">Pesan Lagi</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PANEL AKUN ================= -->
+        <div class="sheet-panel" id="panelAkun">
+          <div class="profile-header-card">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Fikri Bintang" class="user-avatar">
+            <div class="user-meta">
+              <h4>Fikri Bintang</h4>
+              <p>+62 812-3456-7890 • fikri@gonceng.id</p>
+              <span class="member-badge"><i class="fa-solid fa-crown"></i> Member Gold Gonceng</span>
+            </div>
+          </div>
+
+          <div class="account-menu-list">
+            <div class="menu-item" onclick="alert('Menu Metode Pembayaran: GoPay & OVO Terhubung')">
+              <i class="fa-regular fa-credit-card text-green"></i>
+              <span>Metode Pembayaran</span>
+              <i class="fa-solid fa-chevron-right arrow"></i>
+            </div>
+            <div class="menu-item" onclick="alert('Pusat Bantuan Gonceng 24/7 Siap Membantu!')">
+              <i class="fa-regular fa-circle-question text-green"></i>
+              <span>Pusat Bantuan & CS</span>
+              <i class="fa-solid fa-chevron-right arrow"></i>
+            </div>
+            <div class="menu-item" onclick="alert('Keamanan Akun Verifikasi PIN Active')">
+              <i class="fa-solid fa-shield-halved text-green"></i>
+              <span>Keamanan & PIN</span>
+              <i class="fa-solid fa-chevron-right arrow"></i>
+            </div>
+            <div class="menu-item" onclick="alert('Pengaturan Aplikasi UI Versi 2.4.0')">
+              <i class="fa-solid fa-gear text-green"></i>
+              <span>Pengaturan Aplikasi</span>
+              <i class="fa-solid fa-chevron-right arrow"></i>
+            </div>
+          </div>
         </div>
 
       </section>
 
-      <!-- Bottom Nav Bar (Visible on Panel 1) -->
+      <!-- Bottom Nav Bar -->
       <nav class="map-bottom-nav" id="bottomNav">
-        <button class="nav-tab active" onclick="goToStep(1)">
+        <button class="nav-tab active" data-tab="beranda" onclick="switchTab('beranda')">
           <i class="fa-regular fa-compass"></i>
           <span>Beranda</span>
         </button>
-        <button class="nav-tab" onclick="alert('Promo Spesial: Diskon s.d 80% NcengRide & NcengFood!')">
-          <i class="fa-regular fa-bookmark"></i>
+        <button class="nav-tab" data-tab="promo" onclick="switchTab('promo')">
+          <i class="fa-solid fa-ticket"></i>
           <span>Promo</span>
         </button>
-        <button class="nav-tab" onclick="alert('Riwayat Transaksi: 14 Perjalanan Selesai')">
+        <button class="nav-tab" data-tab="pesanan" onclick="switchTab('pesanan')">
           <i class="fa-regular fa-clock"></i>
           <span>Pesanan</span>
         </button>
-        <button class="nav-tab" onclick="alert('Profil Akun: Fikri Bintang (Member Gold)')">
+        <button class="nav-tab" data-tab="akun" onclick="switchTab('akun')">
           <i class="fa-regular fa-user"></i>
           <span>Akun</span>
         </button>
