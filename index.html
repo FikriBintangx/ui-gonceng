@@ -505,6 +505,12 @@
               <div><small>Metode Bayar</small><strong id="trackingPayMethod">GoPay (Rp 11.000)</strong></div>
             </div>
 
+            <!-- Gonceng-Kids Parent Live Streaming Tracker & Emergency SOS (Point 7 & 20) -->
+            <div class="safety-center-bar">
+              <button class="btn-sos-emergency" onclick="triggerSOSAlert()"><i class="fa-solid fa-triangle-exclamation"></i> SOS DARURAT</button>
+              <button class="btn-share-live" onclick="shareLiveLocation()"><i class="fa-solid fa-share-nodes"></i> Bagikan Lokasi LIVE</button>
+            </div>
+
             <button class="btn-fast-forward" onclick="fastForwardTripSim()">
               <i class="fa-solid fa-forward"></i> Percepat Simulasi Perjalanan
             </button>
@@ -519,8 +525,9 @@
             <p>Terima kasih telah menggunakan GO-NCENG</p>
           </div>
 
+          <!-- Rating & Driver Tip Selector (Point 9) -->
           <div class="rating-box">
-            <h4>Beri Ulasan Driver</h4>
+            <h4>Beri Ulasan Driver & Tip Opsional</h4>
             <div class="star-row" id="starRating">
               <i class="fa-solid fa-star star" data-rating="1" onclick="setRating(1)"></i>
               <i class="fa-solid fa-star star" data-rating="2" onclick="setRating(2)"></i>
@@ -528,8 +535,17 @@
               <i class="fa-solid fa-star star" data-rating="4" onclick="setRating(4)"></i>
               <i class="fa-solid fa-star star active" data-rating="5" onclick="setRating(5)"></i>
             </div>
+            
+            <!-- Tip Pills (Point 9) -->
+            <div class="tip-selector-row">
+              <small>Beri Tip Driver:</small>
+              <button class="tip-chip" onclick="selectTip(2000, this)">+Rp 2.000</button>
+              <button class="tip-chip" onclick="selectTip(5000, this)">+Rp 5.000</button>
+              <button class="tip-chip" onclick="selectTip(10000, this)">+Rp 10.000</button>
+            </div>
+
             <textarea id="ratingFeedback" placeholder="Tulis masukan untuk Budi Santoso..."></textarea>
-            <button class="btn-submit-review" onclick="submitRating()">Kirim Rating</button>
+            <button class="btn-submit-review" onclick="submitRating()">Kirim Rating & Tip</button>
           </div>
 
           <div class="receipt-box">
@@ -737,6 +753,59 @@
             <p>Potongan Rp 7.000 min. transaksi Rp 20.000</p>
           </div>
           <button class="btn-use-v">Gunakan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QRIS MODAL (Point 11) -->
+  <div class="modal-overlay" id="qrisModal">
+    <div class="modal-sheet qris-modal-sheet">
+      <div class="modal-head">
+        <h4><i class="fa-solid fa-qrcode text-green"></i> Scan QRIS Pembayaran</h4>
+        <button class="btn-close" onclick="toggleQrisModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body qris-body">
+        <div class="qris-card">
+          <span class="qris-brand">QRIS GO-NCENG</span>
+          <div class="qris-code-img">
+            <i class="fa-solid fa-qrcode"></i>
+          </div>
+          <small>NPMI: ID102026889412</small>
+          <strong class="qris-total-val" id="qrisTotalAmount">Rp 11.000</strong>
+        </div>
+        <button class="btn-confirm-action" onclick="simulateQrisSuccess()">
+          <i class="fa-solid fa-check-double"></i> Simulasi Pembayaran Sukses
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT DRIVER MODAL WITH QUICK REPLIES (Point 10) -->
+  <div class="modal-overlay" id="chatModal">
+    <div class="modal-sheet chat-modal-sheet">
+      <div class="modal-head">
+        <h4><i class="fa-regular fa-comment-dots text-green"></i> Chat Budi Santoso</h4>
+        <button class="btn-close" onclick="toggleChatModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body chat-body">
+        <div class="chat-messages-container" id="chatMessages">
+          <div class="msg-bubble driver">
+            <p>Halo kak! Saya Budi driver Gonceng-Ride. Saya sudah menuju ke Stasiun Manggarai ya.</p>
+            <span class="msg-time">09:42</span>
+          </div>
+        </div>
+
+        <!-- Quick Replies Pills (Point 10) -->
+        <div class="quick-replies-bar">
+          <button class="quick-chip" onclick="sendQuickReply('Saya sudah di depan Pintu Barat stasiun ya Mas!')">Saya di Pintu Barat</button>
+          <button class="quick-chip" onclick="sendQuickReply('Tolong pakai helm yang bersih ya Mas.')">Helm bersih</button>
+          <button class="quick-chip" onclick="sendQuickReply('Posisinya sudah dekat mana ya Mas?')">Sudah dekat mana?</button>
+        </div>
+
+        <div class="chat-input-row">
+          <input type="text" id="chatInputText" placeholder="Ketik pesan..." onkeypress="handleChatKeyPress(event)">
+          <button class="btn-send-msg" onclick="sendCustomChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
       </div>
     </div>

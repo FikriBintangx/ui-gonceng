@@ -237,6 +237,13 @@ function selectPaymentMethod(element, payId) {
   });
   const radio = element.querySelector('.radio-icon');
   if (radio) radio.className = 'fa-solid fa-circle-dot radio-icon';
+
+  if (payId === 'qris') {
+    const finalFare = Math.max(0, state.baseFare + 2000 - state.discountAmount);
+    const qrisVal = document.getElementById('qrisTotalAmount');
+    if (qrisVal) qrisVal.textContent = `Rp ${finalFare.toLocaleString('id-ID')}`;
+    toggleQrisModal();
+  }
 }
 
 function updateCalculatedFare() {
@@ -408,7 +415,94 @@ function resetAppToHome() {
 }
 
 function openChatModal() {
-  alert('Chat dengan Budi Santoso:\n"Saya sudah sampai di depan gapura Pintu Barat ya Mas!"');
+  toggleChatModal();
+}
+
+/* ================= NEW FEATURE HANDLERS (Points 7, 8, 9, 10, 11, 20) ================= */
+let selectedTipAmount = 0;
+
+function selectTip(amount, btnEl) {
+  selectedTipAmount = amount;
+  document.querySelectorAll('.tip-chip').forEach(c => c.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+}
+
+function submitRating() {
+  const btn = document.querySelector('.btn-submit-review');
+  if (btn) {
+    let msg = '✔ Ulasan & Rating Terkirim!';
+    if (selectedTipAmount > 0) {
+      msg = `✔ Ulasan & Tip Rp ${selectedTipAmount.toLocaleString('id-ID')} Terkirim!`;
+    }
+    btn.textContent = msg;
+    btn.style.background = '#00AA13';
+    btn.style.color = '#ffffff';
+  }
+}
+
+/* QRIS Modal & Simulation (Point 11) */
+function toggleQrisModal() {
+  const modal = document.getElementById('qrisModal');
+  if (modal) modal.classList.toggle('show');
+}
+
+function simulateQrisSuccess() {
+  toggleQrisModal();
+  alert('✅ Pembayaran QRIS Berhasil Diverifikasi!');
+  processPaymentOrder();
+}
+
+/* Safety Center & SOS Alert (Points 7 & 20) */
+function triggerSOSAlert() {
+  alert('🚨 SOS DARURAT DIAKTIFKAN!\nSinyal bahaya & lokasi presisi telah dikirimkan ke Tim Customer Care 24/7 dan Kontak Darurat Orang Tua/Keluarga.');
+}
+
+function shareLiveLocation() {
+  alert('📍 LINK LIVE LOCATION BAGIKAN:\nhttps://gonceng.id/track/live?id=TRK-889412\n(Berhasil disalin & siap dikirimkan ke Orang Tua / WhatsApp)');
+}
+
+/* Chat Driver & Quick Replies (Point 10) */
+function toggleChatModal() {
+  const modal = document.getElementById('chatModal');
+  if (modal) modal.classList.toggle('show');
+}
+
+function sendQuickReply(msgText) {
+  appendChatMessage(msgText, 'user');
+  setTimeout(() => {
+    appendChatMessage('Siap kak, terima kasih informasinya!', 'driver');
+  }, 1000);
+}
+
+function sendCustomChatMessage() {
+  const input = document.getElementById('chatInputText');
+  if (!input || !input.value.trim()) return;
+  const msg = input.value.trim();
+  appendChatMessage(msg, 'user');
+  input.value = '';
+
+  setTimeout(() => {
+    appendChatMessage('Oke kak, saya meluncur sesuai titik!', 'driver');
+  }, 1200);
+}
+
+function handleChatKeyPress(e) {
+  if (e.key === 'Enter') sendCustomChatMessage();
+}
+
+function appendChatMessage(text, sender) {
+  const container = document.getElementById('chatMessages');
+  if (!container) return;
+
+  const now = new Date();
+  const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `msg-bubble ${sender}`;
+  msgDiv.innerHTML = `<p>${text}</p><span class="msg-time">${timeStr}</span>`;
+
+  container.appendChild(msgDiv);
+  container.scrollTop = container.scrollHeight;
 }
 
 /* ================= COLOR CUSTOMIZER ENGINE ================= */
