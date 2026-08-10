@@ -227,6 +227,9 @@
           <button class="btn-icon-blur" id="btnBack" style="display: none;">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
+          <button class="btn-icon-blur" onclick="toggleColorCustomizer()" title="Edit Warna & Export Customizer" style="color: var(--primary);">
+            <i class="fa-solid fa-palette"></i>
+          </button>
           <div class="app-brand-pill">
             <span class="b-go">GO</span><span class="b-nceng">-NCENG</span>
           </div>
@@ -830,6 +833,79 @@
           <input type="text" id="chatInputText" placeholder="Ketik pesan..." onkeypress="handleChatKeyPress(event)">
           <button class="btn-send-msg" onclick="sendCustomChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE & PORTRAIT COLOR CUSTOMIZER & EXPORT MODAL -->
+  <div class="modal-overlay" id="colorCustomizerModal">
+    <div class="modal-sheet" style="max-height: 85%; overflow-y: auto;">
+      <div class="modal-head">
+        <h4><i class="fa-solid fa-palette text-green"></i> Live Customizer & Export</h4>
+        <button class="btn-close" onclick="toggleColorCustomizer()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="padding: 0 4px 12px 4px;">
+        
+        <!-- Preset Theme Buttons -->
+        <div style="margin-bottom: 12px;">
+          <small style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Preset Warna Cepat</small>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px;">
+            <button class="place-chip" onclick="applyPresetTheme('gojek')" style="border-left: 3px solid #00AA13;">Gojek</button>
+            <button class="place-chip" onclick="applyPresetTheme('grab')" style="border-left: 3px solid #00b140;">Grab</button>
+            <button class="place-chip" onclick="applyPresetTheme('shopee')" style="border-left: 3px solid #ee4d2d;">Shopee</button>
+            <button class="place-chip" onclick="applyPresetTheme('cyberpunk')" style="border-left: 3px solid #8b5cf6;">Cyberpunk</button>
+            <button class="place-chip" onclick="applyPresetTheme('ocean')" style="border-left: 3px solid #0284c7;">Ocean</button>
+            <button class="place-chip" onclick="resetThemeToDefault()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Color Pickers -->
+        <div style="margin-bottom: 12px;">
+          <small style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Color Pickers Real-Time</small>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-subtle); padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-main);">Warna Utama / Ikon</span>
+              <input type="color" value="#00AA13" oninput="updateThemeColor('primary', this.value)" style="border:none; width:26px; height:26px; background:none; cursor:pointer;">
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-subtle); padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-main);">Background Sheet</span>
+              <input type="color" value="#ffffff" oninput="updateThemeColor('sheetBg', this.value)" style="border:none; width:26px; height:26px; background:none; cursor:pointer;">
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-subtle); padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-main);">Warna Badge Promo</span>
+              <input type="color" value="#f59e0b" oninput="updatePromoBadgeColor(this.value)" style="border:none; width:26px; height:26px; background:none; cursor:pointer;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Editor Promo -->
+        <div style="margin-bottom: 12px;">
+          <small style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Editor Teks Promo</small>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+            <input type="text" value="DISKON 50%" oninput="updatePromoBadgeText(this.value)" style="width:100%; padding:6px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.75rem; background:var(--bg-subtle); color:var(--text-main); font-weight:600;">
+            <input type="text" value="Gunakan promo GONCENGHEMAT diskon s.d Rp 5.000!" oninput="updatePromoTickerText(this.value)" style="width:100%; padding:6px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.75rem; background:var(--bg-subtle); color:var(--text-main); font-weight:600;">
+          </div>
+        </div>
+
+        <!-- Export Action Buttons -->
+        <div>
+          <small style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Export Hasil Custom</small>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px;">
+            <button onclick="toggleColorCustomizer(); exportAsImage('shell');" class="btn-confirm-action" style="padding: 8px; font-size: 0.72rem; background: #00AA13;">
+              <i class="fa-solid fa-mobile-screen-button"></i> Save Mockup 3D
+            </button>
+            <button onclick="toggleColorCustomizer(); exportAsImage('screen');" class="btn-confirm-action" style="padding: 8px; font-size: 0.72rem; background: #10b981;">
+              <i class="fa-solid fa-expand"></i> Save Layar Saja
+            </button>
+            <button onclick="toggleColorCustomizer(); exportAsVideo('shell');" class="btn-confirm-action" style="padding: 8px; font-size: 0.72rem; background: #0284c7;">
+              <i class="fa-solid fa-video"></i> Record Mockup 3D
+            </button>
+            <button onclick="toggleColorCustomizer(); exportAsVideo('screen');" class="btn-confirm-action" style="padding: 8px; font-size: 0.72rem; background: #0369a1;">
+              <i class="fa-solid fa-circle-play"></i> Record Layar Saja
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
