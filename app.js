@@ -86,9 +86,10 @@ function initMainMap() {
     attribution: '&copy; OpenStreetMap'
   }).addTo(state.mainMap);
 
+  const primaryColor = getPrimaryColor();
   const pickupIcon = L.divIcon({
     className: 'custom-map-pin',
-    html: '<div style="background:#00AA13; width:20px; height:20px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 12px rgba(0,0,0,0.5);"></div>',
+    html: `<div style="background:${primaryColor}; width:20px; height:20px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 12px rgba(0,0,0,0.5);"></div>`,
     iconSize: [20, 20]
   });
 
@@ -256,8 +257,10 @@ function showRoutePolylineOnMap() {
     state.mainMap.removeLayer(state.routePolyline);
   }
 
+  const primaryColor = getPrimaryColor();
+
   state.routePolyline = L.polyline([state.pickupCoords, [-6.2020, 106.8350], state.destCoords], {
-    color: '#00AA13',
+    color: primaryColor,
     weight: 5,
     opacity: 0.85,
     dashArray: '8, 8'
@@ -417,9 +420,10 @@ function animateDriverMovement() {
     state.mainMap.removeLayer(state.driverMarker);
   }
 
+  const primaryColor = getPrimaryColor();
   const bikeIcon = L.divIcon({
     className: 'driver-bike-marker',
-    html: '<div style="background:#00AA13; color:#fff; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,0.4); font-size:18px;"><i class="fa-solid fa-motorcycle"></i></div>',
+    html: `<div style="background:${primaryColor}; color:#fff; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,0.4); font-size:18px;"><i class="fa-solid fa-motorcycle"></i></div>`,
     iconSize: [38, 38],
     iconAnchor: [19, 19]
   });
@@ -606,6 +610,58 @@ function toggleColorCustomizer() {
   }
 }
 
+function getPrimaryColor() {
+  return getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#00AA13';
+}
+
+function refreshMapColors() {
+  if (!state.mainMap) return;
+  const primaryColor = getPrimaryColor();
+
+  if (state.pickupMarker) {
+    const pickupIcon = L.divIcon({
+      className: 'custom-map-pin',
+      html: `<div style="background:${primaryColor}; width:20px; height:20px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 12px rgba(0,0,0,0.5);"></div>`,
+      iconSize: [20, 20]
+    });
+    state.pickupMarker.setIcon(pickupIcon);
+  }
+
+  if (state.driverMarker) {
+    const bikeIcon = L.divIcon({
+      className: 'driver-bike-marker',
+      html: `<div style="background:${primaryColor}; color:#fff; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,0.4); font-size:18px;"><i class="fa-solid fa-motorcycle"></i></div>`,
+      iconSize: [38, 38],
+      iconAnchor: [19, 19]
+    });
+    state.driverMarker.setIcon(bikeIcon);
+  }
+
+  if (state.routePolyline) {
+    state.routePolyline.setStyle({ color: primaryColor });
+  }
+}
+
+function updatePromoBadgeText(text) {
+  const badge = document.querySelector('.ticker-badge');
+  if (badge) {
+    badge.innerHTML = `<i class="fa-regular fa-face-smile"></i> ${text}`;
+  }
+}
+
+function updatePromoTickerText(text) {
+  const p = document.querySelector('.promo-ticker p');
+  if (p) {
+    p.innerHTML = text;
+  }
+}
+
+function updatePromoBadgeColor(hexColor) {
+  document.documentElement.style.setProperty('--accent-orange', hexColor);
+  const valEl = document.getElementById('valBadgeBg');
+  if (valEl) valEl.textContent = hexColor.toUpperCase();
+}
+
 function updateThemeColor(type, hexColor) {
   const root = document.documentElement;
 
@@ -615,6 +671,7 @@ function updateThemeColor(type, hexColor) {
     root.style.setProperty('--primary-light', hexColor + '18'); // subtle tint
     const valEl = document.getElementById('valPrimary');
     if (valEl) valEl.textContent = hexColor.toUpperCase();
+    refreshMapColors();
   } 
   else if (type === 'sheetBg') {
     root.style.setProperty('--bg-sheet', hexColor);

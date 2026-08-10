@@ -128,6 +128,27 @@
               </div>
             </div>
 
+            <div class="picker-item">
+              <span>Warna Badge Promo</span>
+              <div class="picker-input-wrap">
+                <input type="color" id="pickerBadgeBg" value="#f59e0b" oninput="updatePromoBadgeColor(this.value)" onchange="updatePromoBadgeColor(this.value)">
+                <code id="valBadgeBg">#F59E0B</code>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Live Promo & Banner Content Editor -->
+        <div class="custom-section" style="margin-top: 1rem;">
+          <label class="custom-label"><i class="fa-solid fa-pen-to-square"></i> Live Editor Banner & Promo</label>
+          <div class="picker-item" style="margin-bottom: 0.6rem; flex-direction: column; align-items: flex-start; gap: 4px;">
+            <span style="font-size: 0.72rem; font-weight: 700;">Teks Badge Diskon</span>
+            <input type="text" id="inputPromoBadgeText" value="DISKON 50%" oninput="updatePromoBadgeText(this.value)" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-size: 0.8rem; font-weight: 600;">
+          </div>
+          <div class="picker-item" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+            <span style="font-size: 0.72rem; font-weight: 700;">Teks Banner Promo</span>
+            <input type="text" id="inputPromoTickerText" value="Gunakan promo GONCENGHEMAT diskon s.d Rp 5.000!" oninput="updatePromoTickerText(this.value)" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-size: 0.8rem; font-weight: 600;">
           </div>
         </div>
 
