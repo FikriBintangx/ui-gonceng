@@ -156,17 +156,24 @@
         <div class="custom-section" style="margin-top: 1rem;">
           <label class="custom-label"><i class="fa-solid fa-download text-green"></i> Export & Save Hasil Custom</label>
           <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+            <!-- Save Image Buttons -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
               <button id="btnExportShell" onclick="exportAsImage('shell')" class="btn-export-pill" style="background: #00AA13; color: #fff; border: none; padding: 10px 8px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 4px 12px rgba(0,170,19,0.3);">
-                <i class="fa-solid fa-mobile-screen-button"></i> Save Mockup HP 3D
+                <i class="fa-solid fa-mobile-screen-button"></i> Save Mockup 3D
               </button>
               <button id="btnExportScreen" onclick="exportAsImage('screen')" class="btn-export-pill" style="background: #10b981; color: #fff; border: none; padding: 10px 8px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 4px 12px rgba(16,185,129,0.3);">
                 <i class="fa-solid fa-expand"></i> Save Layar Saja
               </button>
             </div>
-            <button id="btnExportVideo" onclick="exportAsVideo()" class="btn-export-pill" style="width: 100%; background: #0284c7; color: #fff; border: none; padding: 10px 12px; border-radius: 8px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 12px rgba(2,132,199,0.3);">
-              <i class="fa-solid fa-video"></i> Save Video Recording
-            </button>
+            <!-- Record Video Buttons -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <button id="btnRecordShell" onclick="exportAsVideo('shell')" class="btn-export-pill" style="background: #0284c7; color: #fff; border: none; padding: 10px 8px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 4px 12px rgba(2,132,199,0.3);">
+                <i class="fa-solid fa-video"></i> Record Mockup 3D
+              </button>
+              <button id="btnRecordScreen" onclick="exportAsVideo('screen')" class="btn-export-pill" style="background: #0369a1; color: #fff; border: none; padding: 10px 8px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 4px 12px rgba(3,105,161,0.3);">
+                <i class="fa-solid fa-circle-play"></i> Record Layar Saja
+              </button>
+            </div>
           </div>
         </div>
 

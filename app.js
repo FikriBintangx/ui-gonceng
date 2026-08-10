@@ -899,9 +899,12 @@ async function exportAsImage(mode = 'shell') {
 let activeMediaRecorder = null;
 let activeMediaStream = null;
 
-async function exportAsVideo() {
-  const btn = document.getElementById('btnExportVideo');
-  const origText = '<i class="fa-solid fa-video"></i> Save Video';
+async function exportAsVideo(mode = 'shell') {
+  const btn = mode === 'shell' ? document.getElementById('btnRecordShell') : document.getElementById('btnRecordScreen');
+  const origText = btn ? btn.innerHTML : '';
+  const target = mode === 'shell' 
+    ? (document.getElementById('phoneShell') || document.querySelector('.phone-shell'))
+    : (document.getElementById('phoneScreen') || document.querySelector('.phone-screen'));
 
   if (activeMediaRecorder && activeMediaRecorder.state === 'recording') {
     activeMediaRecorder.stop();
@@ -915,6 +918,10 @@ async function exportAsVideo() {
 
   try {
     if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Pilih Layar/Tab...';
+
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 
     const stream = await navigator.mediaDevices.getDisplayMedia({
       video: { displaySurface: "browser" },
@@ -936,7 +943,7 @@ async function exportAsVideo() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `GONCENG_Preview_Video_${Date.now()}.webm`;
+      link.download = `GONCENG_Video_${mode.toUpperCase()}_${Date.now()}.webm`;
       link.click();
 
       if (activeMediaStream) {
@@ -947,7 +954,7 @@ async function exportAsVideo() {
 
       if (btn) {
         btn.style.background = '#0284c7';
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> Video Downloaded!';
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Downloaded!';
       }
       setTimeout(() => { if (btn) btn.innerHTML = origText; }, 3000);
     };
@@ -961,7 +968,7 @@ async function exportAsVideo() {
     mediaRecorder.start();
     if (btn) {
       btn.style.background = '#ef4444';
-      btn.innerHTML = '<i class="fa-solid fa-square"></i> Stop & Save Video';
+      btn.innerHTML = '<i class="fa-solid fa-square"></i> Stop Record';
     }
 
     if (typeof goToStep === 'function') {
@@ -971,7 +978,7 @@ async function exportAsVideo() {
   } catch (err) {
     console.error('Screen recording canceled or failed:', err);
     if (btn) {
-      btn.style.background = '#0284c7';
+      btn.style.background = mode === 'shell' ? '#0284c7' : '#0369a1';
       btn.innerHTML = origText;
     }
   }
