@@ -152,6 +152,19 @@
           </div>
         </div>
 
+        <!-- Export & Save Section -->
+        <div class="custom-section" style="margin-top: 1rem;">
+          <label class="custom-label"><i class="fa-solid fa-download text-green"></i> Export & Save Hasil Custom</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
+            <button id="btnExportImage" onclick="exportAsImage()" class="btn-export-pill" style="background: #00AA13; color: #fff; border: none; padding: 10px 12px; border-radius: 8px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 12px rgba(0,170,19,0.3);">
+              <i class="fa-solid fa-camera"></i> Save PNG
+            </button>
+            <button id="btnExportVideo" onclick="exportAsVideo()" class="btn-export-pill" style="background: #0284c7; color: #fff; border: none; padding: 10px 12px; border-radius: 8px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 12px rgba(2,132,199,0.3);">
+              <i class="fa-solid fa-video"></i> Save Video
+            </button>
+          </div>
+        </div>
+
         <div class="customizer-actions">
           <button class="btn-reset-theme" onclick="resetThemeToDefault()">
             <i class="fa-solid fa-rotate-left"></i> Reset Bawaan (Gojek Green)
@@ -832,8 +845,9 @@
     </div>
   </div>
 
-  <!-- Leaflet JS & App Code (cdnjs) -->
+  <!-- Leaflet JS, html2canvas & App Code (cdnjs) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous"></script>
   <script src="app.js"></script>
 </body>
 </html>

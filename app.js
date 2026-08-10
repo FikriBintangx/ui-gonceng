@@ -733,3 +733,120 @@ function adjustColorBrightness(hex, percent) {
       B = (num & 0x0000FF) + amt;
   return '#' + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
 }
+
+/* ================= EXPORT AS IMAGE (PNG) & VIDEO (WEBM/MP4) ================= */
+async function exportAsImage() {
+  const target = document.getElementById('phoneScreen') || document.querySelector('.phone-shell');
+  const btn = document.getElementById('btnExportImage');
+  const origText = btn ? btn.innerHTML : '';
+
+  if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing PNG...';
+
+  try {
+    if (typeof html2canvas === 'undefined') {
+      alert('Library html2canvas belum dimuat, silakan muat ulang halaman.');
+      return;
+    }
+
+    const canvas = await html2canvas(target, {
+      useCORS: true,
+      allowTaint: true,
+      scale: 2,
+      logging: false,
+      backgroundColor: null
+    });
+
+    const link = document.createElement('a');
+    link.download = `GONCENG_Mockup_${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    if (btn) btn.innerHTML = '<i class="fa-solid fa-check"></i> Tersimpan!';
+    setTimeout(() => { if (btn) btn.innerHTML = origText; }, 2500);
+  } catch (err) {
+    console.error('Export PNG failed:', err);
+    alert('⚠️ Gagal menyimpan gambar PNG. Pastikan browser tidak memblokir download.');
+    if (btn) btn.innerHTML = origText;
+  }
+}
+
+let activeMediaRecorder = null;
+let activeMediaStream = null;
+
+async function exportAsVideo() {
+  const btn = document.getElementById('btnExportVideo');
+  const origText = '<i class="fa-solid fa-video"></i> Save Video';
+
+  if (activeMediaRecorder && activeMediaRecorder.state === 'recording') {
+    activeMediaRecorder.stop();
+    return;
+  }
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+    alert('⚠️ Browser kamu tidak mendukung fitur Screen Recording otomatis. Gunakan Chrome, Edge, atau Firefox di Desktop.');
+    return;
+  }
+
+  try {
+    if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Pilih Layar/Tab...';
+
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+      video: { displaySurface: "browser" },
+      audio: false
+    });
+
+    activeMediaStream = stream;
+    const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+    activeMediaRecorder = mediaRecorder;
+
+    const chunks = [];
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data && e.data.size > 0) chunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(chunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `GONCENG_Preview_Video_${Date.now()}.webm`;
+      link.click();
+
+      if (activeMediaStream) {
+        activeMediaStream.getTracks().forEach(track => track.stop());
+        activeMediaStream = null;
+      }
+      activeMediaRecorder = null;
+
+      if (btn) {
+        btn.style.background = '#0284c7';
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Video Downloaded!';
+      }
+      setTimeout(() => { if (btn) btn.innerHTML = origText; }, 3000);
+    };
+
+    stream.getVideoTracks()[0].onended = () => {
+      if (mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+      }
+    };
+
+    mediaRecorder.start();
+    if (btn) {
+      btn.style.background = '#ef4444';
+      btn.innerHTML = '<i class="fa-solid fa-square"></i> Stop & Save Video';
+    }
+
+    if (typeof goToStep === 'function') {
+      goToStep(4);
+    }
+
+  } catch (err) {
+    console.error('Screen recording canceled or failed:', err);
+    if (btn) {
+      btn.style.background = '#0284c7';
+      btn.innerHTML = origText;
+    }
+  }
+}
