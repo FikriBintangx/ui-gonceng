@@ -61,12 +61,86 @@
         </div>
       </div>
 
-      <div class="hero-actions">
+      <!-- EMBEDDED SIDE PANEL COLOR CUSTOMIZER -->
+      <div class="sidebar-color-customizer">
+        <div class="customizer-title">
+          <i class="fa-solid fa-palette text-green"></i>
+          <div>
+            <strong>Live Color Customizer</strong>
+            <small>Ubah warna app secara langsung & real-time</small>
+          </div>
+        </div>
+
+        <!-- Preset Theme Buttons -->
+        <div class="custom-section">
+          <label class="custom-label">Preset Tema Cepat</label>
+          <div class="preset-theme-grid">
+            <button class="preset-pill" onclick="applyPresetTheme('gojek')" style="border-left: 4px solid #00AA13;">Gojek Green</button>
+            <button class="preset-pill" onclick="applyPresetTheme('grab')" style="border-left: 4px solid #00b140;">Grab Emerald</button>
+            <button class="preset-pill" onclick="applyPresetTheme('shopee')" style="border-left: 4px solid #ee4d2d;">Shopee Orange</button>
+            <button class="preset-pill" onclick="applyPresetTheme('cyberpunk')" style="border-left: 4px solid #8b5cf6;">Neon Violet</button>
+            <button class="preset-pill" onclick="applyPresetTheme('ocean')" style="border-left: 4px solid #0284c7;">Ocean Blue</button>
+          </div>
+        </div>
+
+        <!-- Live Color Pickers -->
+        <div class="custom-section">
+          <label class="custom-label">Color Pickers Real-Time</label>
+          <div class="color-picker-grid">
+            
+            <div class="picker-item">
+              <span>Warna Utama / Ikon / Button</span>
+              <div class="picker-input-wrap">
+                <input type="color" id="pickerPrimary" value="#00AA13" oninput="updateThemeColor('primary', this.value)" onchange="updateThemeColor('primary', this.value)">
+                <code id="valPrimary">#00AA13</code>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <span>Background Bottom Sheet</span>
+              <div class="picker-input-wrap">
+                <input type="color" id="pickerSheetBg" value="#ffffff" oninput="updateThemeColor('sheetBg', this.value)" onchange="updateThemeColor('sheetBg', this.value)">
+                <code id="valSheetBg">#ffffff</code>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <span>Background HP / Screen</span>
+              <div class="picker-input-wrap">
+                <input type="color" id="pickerPhoneBg" value="#ffffff" oninput="updateThemeColor('phoneBg', this.value)" onchange="updateThemeColor('phoneBg', this.value)">
+                <code id="valPhoneBg">#ffffff</code>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <span>Warna Teks Utama</span>
+              <div class="picker-input-wrap">
+                <input type="color" id="pickerTextMain" value="#0f172a" oninput="updateThemeColor('textMain', this.value)" onchange="updateThemeColor('textMain', this.value)">
+                <code id="valTextMain">#0f172a</code>
+              </div>
+            </div>
+
+            <div class="picker-item">
+              <span>Warna Aksesori / Accent Blue</span>
+              <div class="picker-input-wrap">
+                <input type="color" id="pickerAccentBlue" value="#0284c7" oninput="updateThemeColor('accentBlue', this.value)" onchange="updateThemeColor('accentBlue', this.value)">
+                <code id="valAccentBlue">#0284c7</code>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="customizer-actions">
+          <button class="btn-reset-theme" onclick="resetThemeToDefault()">
+            <i class="fa-solid fa-rotate-left"></i> Reset Bawaan (Gojek Green)
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-actions" style="margin-top: 1.2rem;">
         <button class="btn-toggle-theme" id="themeToggleBtn">
           <i class="fa-regular fa-moon"></i> Dark / Light Frame
-        </button>
-        <button class="btn-toggle-theme btn-color-customizer" onclick="toggleColorCustomizer()">
-          <i class="fa-solid fa-palette"></i> Custom Warna APP
         </button>
         <a href="https://github.com/FikriBintangx/ui-gonceng" target="_blank" class="github-pill">
           <i class="fa-brands fa-github"></i> FikriBintangx/ui-gonceng
@@ -535,90 +609,6 @@
           </div>
           <button class="btn-use-v">Gunakan</button>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- COLOR CUSTOMIZER MODAL (DESKTOP & MOBILE COMPATIBLE) -->
-  <div class="color-customizer-overlay" id="colorCustomizerModal">
-    <div class="color-customizer-card">
-      <div class="modal-head">
-        <h4><i class="fa-solid fa-palette text-green"></i> Kustomisasi Warna APP</h4>
-        <button class="btn-close" onclick="toggleColorCustomizer()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body color-customizer-body">
-        
-        <!-- Preset Theme Buttons -->
-        <div class="custom-section">
-          <label class="custom-label">Pilihan Preset Tema Cepat</label>
-          <div class="preset-theme-grid">
-            <button class="preset-pill" onclick="applyPresetTheme('gojek')" style="border-left: 4px solid #00AA13;">Gojek Green</button>
-            <button class="preset-pill" onclick="applyPresetTheme('grab')" style="border-left: 4px solid #00b140;">Grab Emerald</button>
-            <button class="preset-pill" onclick="applyPresetTheme('shopee')" style="border-left: 4px solid #ee4d2d;">Shopee Orange</button>
-            <button class="preset-pill" onclick="applyPresetTheme('cyberpunk')" style="border-left: 4px solid #8b5cf6;">Neon Violet</button>
-            <button class="preset-pill" onclick="applyPresetTheme('ocean')" style="border-left: 4px solid #0284c7;">Ocean Blue</button>
-          </div>
-        </div>
-
-        <hr class="dash-divider">
-
-        <!-- Individual Color Pickers -->
-        <div class="custom-section">
-          <label class="custom-label">Pengaturan Warna Kustom</label>
-          <div class="color-picker-grid">
-            
-            <div class="picker-item">
-              <span>Warna Utama / Ikon / Button</span>
-              <div class="picker-input-wrap">
-                <input type="color" id="pickerPrimary" value="#00AA13" onchange="updateThemeColor('primary', this.value)">
-                <code id="valPrimary">#00AA13</code>
-              </div>
-            </div>
-
-            <div class="picker-item">
-              <span>Background Card / Bottom Sheet</span>
-              <div class="picker-input-wrap">
-                <input type="color" id="pickerSheetBg" value="#ffffff" onchange="updateThemeColor('sheetBg', this.value)">
-                <code id="valSheetBg">#ffffff</code>
-              </div>
-            </div>
-
-            <div class="picker-item">
-              <span>Background HP / Screen</span>
-              <div class="picker-input-wrap">
-                <input type="color" id="pickerPhoneBg" value="#ffffff" onchange="updateThemeColor('phoneBg', this.value)">
-                <code id="valPhoneBg">#ffffff</code>
-              </div>
-            </div>
-
-            <div class="picker-item">
-              <span>Warna Teks Utama</span>
-              <div class="picker-input-wrap">
-                <input type="color" id="pickerTextMain" value="#0f172a" onchange="updateThemeColor('textMain', this.value)">
-                <code id="valTextMain">#0f172a</code>
-              </div>
-            </div>
-
-            <div class="picker-item">
-              <span>Warna Aksesori / Accent Blue</span>
-              <div class="picker-input-wrap">
-                <input type="color" id="pickerAccentBlue" value="#0284c7" onchange="updateThemeColor('accentBlue', this.value)">
-                <code id="valAccentBlue">#0284c7</code>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="customizer-actions">
-          <button class="btn-reset-theme" onclick="resetThemeToDefault()">
-            <i class="fa-solid fa-rotate-left"></i> Reset Bawaan
-          </button>
-          <button class="btn-confirm-action" onclick="toggleColorCustomizer()">
-            <i class="fa-solid fa-check"></i> Simpan & Tutup
-          </button>
-        </div>
-
       </div>
     </div>
   </div>

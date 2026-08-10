@@ -7,7 +7,7 @@
   --primary: #00AA13;
   --primary-dark: #00880f;
   --primary-light: #e6f7e8;
-  --accent-blue: #0284c7;
+  --accent-blue: #00AA13;
   --accent-orange: #f59e0b;
   --accent-red: #ef4444;
 
@@ -88,11 +88,7 @@ body {
 }
 
 .glow-blue {
-  width: 600px;
-  height: 600px;
-  background: var(--accent-blue);
-  bottom: -150px;
-  right: 15%;
+  display: none;
 }
 
 .desktop-hero-content {
@@ -204,12 +200,12 @@ body {
   z-index: 10;
   width: 410px;
   height: 840px;
-  background: #0f172a;
+  background: #000000;
   border-radius: var(--radius-phone);
   padding: 12px;
   box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.85),
-              0 0 0 10px #1e293b,
-              0 0 0 12px #334155;
+              0 0 0 10px #111827,
+              0 0 0 12px #1f2937;
   transition: var(--transition);
   margin-left: auto;
   margin-right: 6vw;
@@ -781,21 +777,37 @@ body {
 .text-green { color: var(--primary) !important; }
 .text-muted { color: var(--text-muted) !important; }
 
-/* COLOR CUSTOMIZER STYLES */
-.btn-color-customizer {
-  background: var(--primary) !important;
-  color: #ffffff !important;
-  border: none !important;
-  box-shadow: 0 4px 14px rgba(0, 170, 19, 0.4);
+/* EMBEDDED SIDEBAR COLOR CUSTOMIZER */
+.sidebar-color-customizer {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 1.2rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
-.btn-color-customizer:hover {
-  background: var(--primary-dark) !important;
+.customizer-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-.color-customizer-sheet {
-  max-height: 85vh;
-  overflow-y: auto;
+.customizer-title i {
+  font-size: 1.4rem;
+}
+
+.customizer-title strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.customizer-title small {
+  font-size: 0.7rem;
+  color: #94a3b8;
 }
 
 .custom-section {
