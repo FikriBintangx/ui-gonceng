@@ -907,6 +907,39 @@ body {
   background: #f1f5f9;
 }
 
+/* COLOR CUSTOMIZER OVERLAY & MODAL CARD */
+.color-customizer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.color-customizer-overlay.show {
+  display: flex;
+}
+
+.color-customizer-card {
+  background: var(--bg-sheet);
+  border: 1px solid var(--border);
+  width: 100%;
+  max-width: 440px;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 /* RESPONSIVE MOBILE VIEW */
 @media (max-width: 767px) {
   body { background-color: #ffffff; }
