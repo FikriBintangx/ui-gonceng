@@ -748,12 +748,14 @@ async function exportAsImage() {
       return;
     }
 
+    const sheetBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-sheet').trim() || '#ffffff';
+
     const canvas = await html2canvas(target, {
       useCORS: true,
       allowTaint: true,
-      scale: 2,
+      scale: 2.5,
       logging: false,
-      backgroundColor: null
+      backgroundColor: sheetBg || '#ffffff'
     });
 
     const link = document.createElement('a');
